@@ -1,3 +1,4 @@
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,13 +10,12 @@ public class authentication {
     public employee login(String username, String password) {
         //First, we query the database with the provided username and password.
         String query = "SELECT * FROM employees WHERE username = ? AND password = ?";
-
-        try (PreparedStatement statement = connection.prepareStatement(query)) {
+        try (Connection connection = start.connect(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
             statement.setString(2, password);
     
             ResultSet resultSet = statement.executeQuery();
-    
+            
             if (resultSet.next()) {
                 // Using resultSet to map the database data to variables.
                 
