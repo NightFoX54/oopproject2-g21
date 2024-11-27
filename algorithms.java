@@ -250,7 +250,6 @@ public class algorithms{
                     arr[j + 1] = arr[j];
                 
             }
-            System.out.println(j);
             arr[j + 1] = current;
             if(arr[0] > arr[1]){
                 int temp = arr[0];
