@@ -6,6 +6,30 @@ import java.util.Scanner;
 
 public class start{
     static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        employee user = null;
+        String username;
+        String password;
+        while(user == null){
+            System.out.print("Please type your username to login: ");
+            username = scanner.nextLine();
+            System.out.print("Please type your password to login: ");
+            password = scanner.nextLine();
+            user = authentication.login(username,password);
+        }
+        manager mUser;
+        regularEmployee eUser;
+        if(user.role.equals("manager")){
+            mUser = (manager) user;
+            //manager menu
+        }
+        else{
+            eUser = (regularEmployee) user;
+            //employee menu
+        }
+    }
+    
     public static Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/deneme", "root", "179492");
     }
