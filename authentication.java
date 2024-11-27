@@ -7,7 +7,7 @@ public class authentication {
 
     //There will be a connection variable to connect database
 
-    public employee login(String username, String password) {
+    public static employee login(String username, String password) {
         //First, we query the database with the provided username and password.
         String query = "SELECT * FROM employees WHERE username = ? AND password = ?";
         try (Connection connection = start.connect(); PreparedStatement statement = connection.prepareStatement(query)) {
