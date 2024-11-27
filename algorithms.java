@@ -38,9 +38,16 @@ public class algorithms{
         endTime = System.nanoTime();
         print(heap, heap.length);
         long heapExecutionTime = endTime - startTime;
+        System.out.println();
+        startTime = System.nanoTime();
+        insertion_sort(insertion);
+        endTime = System.nanoTime();
+        print(insertion, insertion.length);
+        long insertionExecutionTime = endTime - startTime;
         System.out.println("Collections sort execution time: " + defaultExecutionTime + " nanoseconds.");
         System.out.println("Radix sort execution time: " + radixExecutionTime + " nanoseconds.");
         System.out.println("Heap sort execution time: " + heapExecutionTime + " nanoseconds.");
+        System.out.println("Insertion sort execution time: " + insertionExecutionTime + " nanoseconds.");
         if(isArraySame(radix,arr))
             System.out.println("Radix sort and Collections sort outputs are the same");
         if(isArraySame(shell,arr))
