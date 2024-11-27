@@ -7,7 +7,7 @@ class manager extends employee{
     }
 
     public void displayAllEmployees() {
-        final String query = "SELECT username, name, surname, role, phoneNo, String dateOfBirth, String dateOfStart, String email FROM employees"; //SQL query for obtaining data from database.
+        final String query = "SELECT username, name, surname, role, phoneNo, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
         Statement statement = null; 
         ResultSet res = null;
 
