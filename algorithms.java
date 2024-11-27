@@ -34,6 +34,12 @@ public class algorithms{
         System.out.println();
         long radixExecutionTime = endTime - startTime;
         startTime = System.nanoTime();
+        radixsort(shell, shell.length);
+        endTime = System.nanoTime();
+        print(shell, shell.length);
+        System.out.println();
+        long shellExecutionTime = endTime - startTime;
+        startTime = System.nanoTime();
         heapsort(heap, heap.length);
         endTime = System.nanoTime();
         print(heap, heap.length);
@@ -46,6 +52,7 @@ public class algorithms{
         long insertionExecutionTime = endTime - startTime;
         System.out.println("Collections sort execution time: " + defaultExecutionTime + " nanoseconds.");
         System.out.println("Radix sort execution time: " + radixExecutionTime + " nanoseconds.");
+        System.out.println("Shell sort execution time: " + shellExecutionTime + " nanoseconds.");
         System.out.println("Heap sort execution time: " + heapExecutionTime + " nanoseconds.");
         System.out.println("Insertion sort execution time: " + insertionExecutionTime + " nanoseconds.");
         if(isArraySame(radix,arr))
@@ -198,6 +205,25 @@ public class algorithms{
     //Functions for Shell Sort
     //-------------------------------------------------------------------------------------
 
+    public static void shellsort(int arr[]) {
+
+        int init_gap = arr.length / 2;
+        while (init_gap > 0) {
+            for (int i = init_gap; i < arr.length; i++) {
+              
+                int current = arr[i];
+                int j;
+     
+                for(j = i; j >= init_gap && arr[j - init_gap] > current; j -= init_gap){
+                    arr[j] = arr[j - init_gap];
+                }
+
+                arr[j] = current;
+            }
+
+            init_gap /= 2;
+        }
+    }
 
     //-------------------------------------------------------------------------------------
 
