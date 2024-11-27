@@ -12,7 +12,7 @@ class manager extends employee{
         ResultSet res = null;
 
         try {
-            //
+            Connection connection = start.connect();
             statement = connection.createStatement();
             res = statement.executeQuery(query);
             ResultSetMetaData allEmps = res.getMetaData();
