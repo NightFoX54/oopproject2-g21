@@ -232,7 +232,26 @@ public class algorithms{
     //Functions for Insertion Sort
     //-------------------------------------------------------------------------------------
 
+    public static void insertion_sort(int[ ] arr){
 
+        for(int i = 1; i < arr.length; i++){
+
+            int current = arr[i];
+            int j;
+            for(j =  i- 1; j > 0 && arr[j] > current; j--){
+                if(arr[j] > current)
+                    arr[j + 1] = arr[j];
+                
+            }
+            System.out.println(j);
+            arr[j + 1] = current;
+            if(arr[0] > arr[1]){
+                int temp = arr[0];
+                arr[0] = arr[1];
+                arr[1] = temp;
+            }
+        }
+    }
 
     //-------------------------------------------------------------------------------------
     
