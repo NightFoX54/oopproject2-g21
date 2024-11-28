@@ -1,4 +1,3 @@
-import java.util.*;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -14,15 +13,15 @@ class manager extends employee{
 
     }
 
-    public static void displayAllEmployees() {
+    public void displayAllEmployees() {
         final String query = "SELECT employee_id, username, name, surname, role, phoneNo, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
     
         try (Connection connection = start.connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery(query);
+            ){
             ResultSetMetaData allEmps = res.getMetaData();
-            int numOfCols = allEmps.getColumnCount();){
-            
+            int numOfCols = allEmps.getColumnCount();
 
             //Table view for readibilty.
             System.out.println("=====================================================================");
@@ -45,10 +44,9 @@ class manager extends employee{
 
     public void managerFire(){
 
-        System.out.println("Please enter the employee_id of the employee you want to fire:");
+        System.out.print("Please enter the employee_id of the employee you want to fire:");
         
-        Scanner scanner = new Scanner(System.in);
-        String employee_id = scanner.nextLine();
+        String employee_id = start.scanner.nextLine();
 
         if(this.employee_id.equals(employee_id)){
             System.out.println("The manager cannot fire himself/herself !");
@@ -60,7 +58,9 @@ class manager extends employee{
         String surname = null;
 
         // To obtain 'name' and 'surname' from database by using 'employee_id':
-        try {
+        try(Connection connection = start.connect();
+            Statement statement = connection.createStatement()) {
+
             PreparedStatement statementForNameSurname = connection.prepareStatement(selectQuery);
             statementForNameSurname.setString(1, employee_id);
             ResultSet res = statementForNameSurname.executeQuery();
@@ -86,7 +86,7 @@ class manager extends employee{
         //Deleting employee from database depending on Managers' decision:
         String deleteQuery = "DELETE FROM employees WHERE employee_id=? AND role!='manager' ";
 
-        try { 
+        try (Connection connection = start.connect()){ 
             PreparedStatement statementForDelete = connection.prepareStatement(deleteQuery);
             statementForDelete.setString(1,employee_id);
             int deletedRows = statementForDelete.executeUpdate();
@@ -103,16 +103,15 @@ class manager extends employee{
         }
     }
 
-    public static void displayByRole(){
+    public void displayByRole(){
         //Getting Input from user may operated in main (?)
-        Scanner scanner = new Scanner(System.in);
         String role = "";
         boolean valid = false;
          
         
         while (!valid){
             System.out.print("Enter the role for sorting employees for organized display (Roles: manager, engineer, technician, intern): ");
-            role = scanner.nextLine().toLowerCase();
+            role = start.scanner.nextLine().toLowerCase();
 
             if(role.equals("manager")||role.equals("engineer")||role.equals("technician")||role.equals("intern")){
                 valid=true;
@@ -150,16 +149,16 @@ class manager extends employee{
         }
     }   
 
-    public static void displayByUsername(){
-        
-        Scanner scanner = new Scanner(System.in);
+    public void displayByUsername(){
+        ;
         String username = "";
         boolean valid = false;
 
         /*kullanıcının girdiği username database'de var mı yok mu onun kontrolü yapılacak, kısacası username için input control ve database controlü.
         kullanıcıdan input alma işlerini mainde mi yapıcaz fonksiyonlarda herkes kendince yapsın mı?
         */
-
+        System.out.print("Enter the username to see the employee: ");
+        username = start.scanner.nextLine().toLowerCase();
 
 
         final String checkUsernameQuery = "SELECT COUNT(*) FROM employees WHERE username = ?";  //Database'de username var mı yok mu kontrol için query.
