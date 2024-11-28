@@ -18,12 +18,12 @@ public class authentication {
             
             if (resultSet.next()) {
                 // Using resultSet to map the database data to variables.
-                
+                String employee_id = resultSet.getString("employee_id");
                 String _username = resultSet.getString("username");
                 String role = resultSet.getString("role");
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
-                String phone_no = resultSet.getString("phoneNo");
+                String phone_no = resultSet.getString("phone_no");
                 String dateof_birth = resultSet.getString("dateOfBirth");
                 String dateof_start = resultSet.getString("dateOfStart");
                 String email = resultSet.getString("email");
@@ -31,9 +31,9 @@ public class authentication {
     
                 // Checking the role and create the object according to it.
                 if (role.equalsIgnoreCase("Manager")) {
-                    return new manager(_username, role, name, surname, phone_no, dateof_birth, dateof_start, email); 
+                    return new manager(employee_id ,_username, role, name, surname, phone_no, dateof_birth, dateof_start, email); 
                 } else if (role.equalsIgnoreCase("RegularEmployee")) {
-                    return new regularEmployee(_username, role, name, surname, phone_no, dateof_birth, dateof_start, email); 
+                    return new regularEmployee(employee_id, _username, role, name, surname, phone_no, dateof_birth, dateof_start, email); 
                 }
             }  
         } catch (SQLException e) {
