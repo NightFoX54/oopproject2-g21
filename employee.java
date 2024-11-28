@@ -26,6 +26,37 @@ abstract class employee {
         this.email = email;
     }
 
+    public void defaultPasswordChange(){
+        String query = "SELECT * FROM employees WHERE username = ? AND password = ?";
+        try (Connection connection = start.connect(); PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1, this.username);
+                statement.setString(2, "password123");
+                
+                ResultSet resultSet = statement.executeQuery();
+    
+                
+                if (resultSet.next()) {
+                    System.out.println("Welcome! Your current password is the default password.");
+                    System.out.print("Type your desired password to change your password: ");
+                    String password = start.scanner.nextLine();
+                    query = "UPDATE employees SET password = ? WHERE username = ?";
+                    PreparedStatement statement2 = connection.prepareStatement(query);
+                    statement2.setString(2, this.username);
+                    statement2.setString(1, password);
+                    if(statement2.executeUpdate() > 0){
+                        System.out.println("Password is updated.");
+                    }
+                    // Update information
+                    
+                } else {
+                    System.out.println("Error occured while updating profile.");
+                }
+    
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+    }
+
     public void displayProfile() {
     // Printing the profile of the employee
     System.out.println("======================================================================================================================================================================================");
