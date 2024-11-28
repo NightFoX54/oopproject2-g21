@@ -7,25 +7,22 @@ class manager extends employee{
         super(employee_id, username, role, name, surname, phoneNo, dateOfBirth, dateOfStart, email);
     }
 
-/* public static Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db", "root", "qwerty");
-    }
-*/
+    /* public static Connection connect() throws SQLException {
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db", "root", "qwerty")
+    */
+    
     public void managerMenu(){
-
     }
 
-    public void displayAllEmployees() {
+    public static void displayAllEmployees() {
         final String query = "SELECT employee_id, username, name, surname, role, phoneNo, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
-        Statement statement = null; 
-        ResultSet res = null;
-
-        try {
-            connection = start.connect();
-            statement = connection.createStatement();
-            res = statement.executeQuery(query);
+    
+        try (Connection connection = start.connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery(query);
             ResultSetMetaData allEmps = res.getMetaData();
-            int numOfCols = allEmps.getColumnCount();
+            int numOfCols = allEmps.getColumnCount();){
+            
 
             //Table view for readibilty.
             System.out.println("=====================================================================");
@@ -41,27 +38,9 @@ class manager extends employee{
             }
             System.out.println("=====================================================================");
         } catch (SQLException e) {
-            e.printStackTrace(); 
+            System.out.println("Error occurred when trying to retrieve data from database: " + e.getMessage());
+            e.printStackTrace();
         } 
-
-        //Manually closing statement and res for preventing memory leak:
-        if(statement != null){
-            try{
-                statement.close();
-            }
-            catch (SQLException e){
-                e.printStackTrace();
-            }
-        }
-
-        if(res != null){
-            try{
-                res.close();
-            }
-            catch(SQLException e){
-                e.printStackTrace();
-            }
-        }
     }
 
     public void managerFire(){
@@ -99,6 +78,7 @@ class manager extends employee{
         } 
         catch (SQLException e) {
             System.out.println("Error occured while obtaining employee details from database: " + e.getMessage());
+            e.printStackTrace();
 
             return;
         }
@@ -123,6 +103,52 @@ class manager extends employee{
         }
     }
 
+    public static void displayByRole(){
+        //Getting Input from user may operated in main (?)
+        Scanner scanner = new Scanner(System.in);
+        String role = "";
+        boolean valid = false;
+         
+        
+        while (!valid){
+            System.out.print("Enter the role for sorting employees for organized display (Roles: manager, engineer, technician, intern): ");
+            role = scanner.nextLine().toLowerCase();
+
+            if(role.equals("manager")||role.equals("engineer")||role.equals("technician")||role.equals("intern")){
+                valid=true;
+            }
+            else{
+                System.out.println("The role that you entered is invalid! Please type again (Roles: manager, engineer, technician, intern): ");
+            }
+        }
+
+        final String displayByRoleQuery = "SELECT employee_id, username, name, surname, phoneNo, dateOfBirth, dateOfStart, email FROM employees WHERE role = ?";
+
+        try(Connection connection = start.connect();
+            PreparedStatement statementForRoleSort = connection.prepareStatement(displayByRoleQuery);){
+            
+            statementForRoleSort.setString(1, role);
+            ResultSet res = statementForRoleSort.executeQuery();
+            ResultSetMetaData empsByRole = res.getMetaData();
+            int numOfCols = empsByRole.getColumnCount();
+
+            System.out.println("=====================================================================");
+            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n","Employee ID", "Username", "Name", "Surname", "Phone Number","Date of Birth","Date of Start", "Email");
+            System.out.println("=====================================================================");
+
+            while(res.next()){
+                for (int i = 1; i <= numOfCols; i++) {
+                    System.out.printf("%-20s\t", res.getObject(i));
+                }
+                System.out.println();
+            }
+            System.out.println("=====================================================================");
+        }
+        catch(SQLException e){
+            System.out.println("Error ocurred when retrieving data from database by specified role: "+ e.getMessage());
+            e.printStackTrace();
+        }
+    }   
 
 
     
