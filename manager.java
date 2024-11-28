@@ -299,7 +299,7 @@ public boolean addUser(String username, String password, String role, String nam
 
         // Inputting new value for employee field to update:
         String newValue;
-        boolean validValues = false;
+        boolean validValue = false;
         while (!validValue) {
             System.out.print("Enter the new value for " + updateField + ": ");
             newValue = scanner.nextLine().trim().toLowerCase();
