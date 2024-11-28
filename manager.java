@@ -24,7 +24,7 @@ class manager extends employee{
 
             //Table view for readibilty.
             System.out.println("========================================================================================================================================================================");
-            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
+            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role", "Phone Number","Date of Birth", "Date of Start", "Email");
             System.out.println("========================================================================================================================================================================");
 
             // To view Query results:
