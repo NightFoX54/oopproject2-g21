@@ -8,7 +8,7 @@ class manager extends employee{
     }
 
 /* public static Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/deneme", "root", "179492");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db", "root", "qwerty");
     }
 */
     public void managerMenu(){
@@ -21,7 +21,7 @@ class manager extends employee{
         ResultSet res = null;
 
         try {
-            Connection.connection = start.connect();
+            connection = start.connect();
             statement = connection.createStatement();
             res = statement.executeQuery(query);
             ResultSetMetaData allEmps = res.getMetaData();
@@ -29,7 +29,7 @@ class manager extends employee{
 
             //Table view for readibilty.
             System.out.println("=====================================================================");
-            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role", "Phone Number","Date of Birth", "Date of Start" "Email");
+            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role", "Phone Number","Date of Birth", "Date of Start", "Email");
             System.out.println("=====================================================================");
 
             // To view Query results:
