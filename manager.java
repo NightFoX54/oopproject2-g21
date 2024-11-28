@@ -1,5 +1,4 @@
 import java.sql.*;
-import java.util.Scanner;
 
 class manager extends employee{
     public manager(String employee_id, String username, String role, String name, String surname, String phoneNo, String dateOfBirth, String dateOfStart, String email) {
@@ -150,7 +149,6 @@ class manager extends employee{
     }   
 
     public void displayByUsername(){
-        ;
         String username = "";
         boolean valid = false;
 
