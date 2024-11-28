@@ -43,8 +43,11 @@ class manager extends employee{
 
     public void managerFire(){
 
+        String selectQuery = "SELECT name, surname FROM employees WHERE employee_id = ?";  
+        String deleteQuery = "DELETE FROM employees WHERE employee_id=?"; 
+        String name = null, surname = null, role= null;
+
         System.out.print("Please enter the employee_id of the employee you want to fire:");
-        
         String employee_id = start.scanner.nextLine();
 
         if(this.employee_id.equals(employee_id)){
@@ -52,53 +55,48 @@ class manager extends employee{
             return;
         }
 
-        String selectQuery = "SELECT name, surname FROM employees WHERE employee_id = ?";
-        String name = null;
-        String surname = null;
+        try(Connection connection = start.connect()) {
 
-        // To obtain 'name' and 'surname' from database by using 'employee_id':
-        try(Connection connection = start.connect();
-            Statement statement = connection.createStatement()) {
-
-            PreparedStatement statementForNameSurname = connection.prepareStatement(selectQuery);
+            // To obtain 'name' and 'surname' from database by using 'employee_id':
+            try(PreparedStatement statementForNameSurname = connection.prepareStatement(selectQuery);
             statementForNameSurname.setString(1, employee_id);
-            ResultSet res = statementForNameSurname.executeQuery();
-
-            
-            if (res.next()) {
-                name = res.getString("name");
-                surname = res.getString("surname");
+            ResultSet res = statementForNameSurname.executeQuery();) {
+                if (res.next()) {
+                    name = res.getString("name");
+                    surname = res.getString("surname");
+                    role = res.getString("role");
+                } 
+                else {
+                    System.out.println("No employee matched with Employee ID: " + employee_id);
+                    return;
+                }
             } 
-            else {
-                System.out.println("No employee matched with Employee ID: " + employee_id);
+            catch (SQLException e) {
+                System.out.println("Error occured while obtaining employee details from database: " + e.getMessage());
+                e.printStackTrace();
 
                 return;
             }
-        } 
-        catch (SQLException e) {
-            System.out.println("Error occured while obtaining employee details from database: " + e.getMessage());
-            e.printStackTrace();
+    
+            //Deleting employee from database depending on Managers' decision:
+            try (PreparedStatement statementForDelete = connection.prepareStatement(deleteQuery);
+                statementForDelete.setString(1,employee_id);
+                int deletedRows = statementForDelete.executeUpdate();){ 
 
-            return;
-        }
-
-        //Deleting employee from database depending on Managers' decision:
-        String deleteQuery = "DELETE FROM employees WHERE employee_id=? AND role!='manager' ";
-
-        try (Connection connection = start.connect()){ 
-            PreparedStatement statementForDelete = connection.prepareStatement(deleteQuery);
-            statementForDelete.setString(1,employee_id);
-            int deletedRows = statementForDelete.executeUpdate();
-
-            if(deletedRows > 0){
-                System.out.println("Employee "+ name +" "+ surname + " has been fired !");
-            } 
-            else{
-                System.out.println("Employee with "+ employee_id + " has not registered in the database!" );
+                if(deletedRows > 0){
+                    System.out.println("Employee "+ name +" "+ surname + " has been fired !");
+                } 
+                else{
+                    System.out.println("Employee with "+ employee_id + " has not registered in the database!" );
+                }
             }
-        }
-        catch (SQLException e) {
-            System.out.println("Some error ocureed when firing wanted employee: " + e.getMessage());
+            catch (SQLException e) {
+                System.out.println("Some error ocureed when firing wanted employee: " + e.getMessage());
+                e.printStackTrace();
+            }
+        }catch(SQLException e){
+            System.out.println("Error ocurred when connecting to database!"+ e.getMessage());
+            e.printStackTrace();
         }
     }
 
