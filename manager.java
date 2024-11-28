@@ -185,5 +185,42 @@ class manager extends employee{
         }
     }
 
+public boolean addUser(String username, String password, String role, String name, String surname, String phone_no, String dateof_birth, String dateof_start, String email) {
+
+        //employees adlı tabloya (database) insert ile dolum yapıyoruz ve gerekli değişkenleri yolluyoruz.
+        String user = "INSERT INTO employees (employee_id, username, password, role, name, surname, phone_no, dateof_birth, dateof_start, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        String defaultPassword = "NEWEMP345";
+        //kullanıcın ilk şifresini sistem belirleyecek kullanıcı sonradan güncelleyebilir.
+
+        try (PreparedStatement statement = connection.prepareStatement(user)) {
+            statement.setString(2, username);
+            statement.setString(3, defaultPassword);
+            statement.setString(4, role);
+            statement.setString(5, name);
+            statement.setString(6, surname);
+            statement.setString(7, phone_no);
+            statement.setString(8, dateof_birth);
+            statement.setString(9, dateof_start);
+            statement.setString(10, email);
+
+            //status ile execute yaptıktan sonra başarılı mı başarısız mı olduğunu takip ediyoruz.
+            int status = statement.executeUpdate();
+
+            if (status > 0) {
+                System.out.println("Employee added succesfully!");
+            }
+            //ekrana başarılı mesajı yazdırılıp menüye yönlendirilecek.
+
+            return status > 0;
+        } catch (SQLException failed) {
+            failed.printStackTrace();
+            return false;
+        }
+
+    }
+
+
+    
     
 }
