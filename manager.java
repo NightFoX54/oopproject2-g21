@@ -9,6 +9,60 @@ class manager extends employee{
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db", "root", "qwerty");
     */
     public void managerMenu(){
+        start.clear();
+        System.out.println("Welcome " + this.name + " " + this.surname + "\n");
+        String operation = "";
+        while(!operation.equals("I")){
+            System.out.println("[A] Display Own Profile");
+            System.out.println("[B] Update Own Profile");
+            System.out.println("[C] Display All Employees");
+            System.out.println("[D] Display Employees With The Role");
+            System.out.println("[E] Display Employee With Username");
+            System.out.println("[F] Update Employee");
+            System.out.println("[G] Hire Employee");
+            System.out.println("[H] Fire Employee");
+            System.out.println("[I] Log Out.");
+            System.out.print("Choose the operation you want to do: ");
+            operation = start.scanner.nextLine();
+            operation = start.menuInput('I', operation, "Incorrect input! Type again to select the operation: ");
+            switch(operation){
+                case "A":
+                    this.displayProfile();
+                    break;
+                
+                case "B":
+                    this.updateProfile();
+                    break;
+                
+                case "C":
+                    this.displayAllEmployees();
+                    break;
+                
+                case "D":
+                    this.displayByRole();
+                    break;
+
+                case "E":
+                    this.displayByUsername();
+                    break;
+                
+                case "F":
+                    //update employee
+                    break;
+                
+                case "G":
+                    this.hireEmployee();
+                    break;
+                
+                case "H":
+                    this.managerFire();
+                    break;
+
+                case "I":
+                    // log out
+                    break;
+            }
+        }
 
     }
 
@@ -185,15 +239,72 @@ class manager extends employee{
         }
     }
 
-public boolean addUser(String username, String password, String role, String name, String surname, String phone_no, String dateof_birth, String dateof_start, String email) {
-
-        //employees adlı tabloya (database) insert ile dolum yapıyoruz ve gerekli değişkenleri yolluyoruz.
-        String user = "INSERT INTO employees (employee_id, username, password, role, name, surname, phone_no, dateof_birth, dateof_start, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+public boolean hireEmployee() {
+        String username = "";
+        String role = "";
+        String name = "";
+        String surname = "";
+        String phone_no = "";
+        String dateof_birth = "";
+        String dateof_start = "";
+        String email = "";
+        final String query = "SELECT employee_id FROM employees";
+        String user = "INSERT INTO employees (employee_id, username, password, role, name, surname, phone_no, dateofbirth, dateofstart, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
         
-        String defaultPassword = "NEWEMP345";
-        //kullanıcın ilk şifresini sistem belirleyecek kullanıcı sonradan güncelleyebilir.
+        String defaultPassword = "password123";
 
-        try (PreparedStatement statement = connection.prepareStatement(user)) {
+        try (Connection connection = start.connect(); PreparedStatement statement = connection.prepareStatement(user)) {
+            boolean usernameExists = true;
+            Statement rowCheck = connection.createStatement();
+            ResultSet res = rowCheck.executeQuery(query);
+
+            String maxId = "";
+            int id = 0;
+            while(res.next()){
+                if(res.getInt(1) > id)
+                    id = res.getInt(1);
+            }
+            id++;
+            maxId = String.valueOf(id);
+            int usernameTrial = 0;
+            while(usernameExists){
+                start.clear();
+                if(usernameTrial == 0)
+                    System.out.print("Please type the username of the employee: ");
+                else
+                    System.out.print("Username is already taken by another employee! Please choose another username: ");
+                username = start.scanner.nextLine();
+                usernameExists = this.checkUser(username);
+                usernameTrial++;
+            }
+            start.clear();
+            System.out.print("Please type the role of the employee: ");
+            role = start.scanner.nextLine();
+            start.clear();
+            System.out.print("Please type the name of the employee: ");
+            name = start.scanner.nextLine();
+            name = start.inputControl("letter", name, "Incorrect input. Please type the name of the employee: ");
+            start.clear();
+            System.out.print("Please type the surname of the employee: ");
+            surname = start.scanner.nextLine();
+            surname = start.inputControl("letter", surname, "Incorrect input. Please type the name of the employee: ");
+            start.clear();
+            System.out.print("Please type the phone number of the employee: ");
+            phone_no = start.scanner.nextLine();
+            phone_no = start.inputControl("number", phone_no, "Incorrect input. Please type the phone number of the employee: ");
+            start.clear();
+            System.out.print("Please type the date of birth of the employee in YYYY-MM-DD format: ");
+            dateof_birth = start.scanner.nextLine();
+            dateof_birth = start.inputControl("date", dateof_birth, "Incorrect input. Please type the date of birth of the employee in YYYY-MM-DD format: ");
+            start.clear();
+            System.out.print("Please type the date of start of the employee in YYYY-MM-DD format: ");
+            dateof_start = start.scanner.nextLine();
+            dateof_start = start.inputControl("date", dateof_start, "Incorrect input. Please type the date of start of the employee in YYYY-MM-DD format: ");
+            start.clear();
+            System.out.print("Please type the email of the employee: ");
+            email = start.scanner.nextLine();
+            email = start.inputControl("mail", email, "Incorrect input. Please type the email of the employee: ");
+            statement.setString(1, maxId);
             statement.setString(2, username);
             statement.setString(3, defaultPassword);
             statement.setString(4, role);
@@ -204,13 +315,11 @@ public boolean addUser(String username, String password, String role, String nam
             statement.setString(9, dateof_start);
             statement.setString(10, email);
 
-            //status ile execute yaptıktan sonra başarılı mı başarısız mı olduğunu takip ediyoruz.
             int status = statement.executeUpdate();
 
             if (status > 0) {
                 System.out.println("Employee added succesfully!");
             }
-            //ekrana başarılı mesajı yazdırılıp menüye yönlendirilecek.
 
             return status > 0;
         } catch (SQLException failed) {
