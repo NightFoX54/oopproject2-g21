@@ -30,6 +30,7 @@ public class start{
                 break;
         }
         if(!close.equals("X")){
+            user.defaultPasswordChange();
             manager mUser;
             regularEmployee eUser;
             if(user.role.equals("manager")){
