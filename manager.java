@@ -220,6 +220,117 @@ public boolean addUser(String username, String password, String role, String nam
 
     }
 
+    public void userUpdate() {
+    
+        String employee_id;
+        boolean validID = false;
+        String checkEmpID = "SELECT * FROM employees WHERE employee_id = ?";
+
+        //Checking the employee is exist?:
+        do {
+            System.out.print("Enter the employee_id of the user you want to update: ");
+            employee_id = start.scanner.nextLine().trim();
+
+            try (Connection connection = start.connect();
+                PreparedStatement checkStatement = connection.prepareStatement(checkEmpID)) {
+
+                checkStatement.setString(1, employee_id);
+                ResultSet res = checkStatement.executeQuery();
+
+                if (res.next()) {
+                    validID = true; 
+                    System.out.println("Employee found: "+ employee_id+ " " + res.getString("name") + " " + res.getString("surname"));
+                } else {
+                    System.out.println("No employee found with EmployeeID: " + employee_id + " Please enter the EmployeeID again!");
+                }
+            } catch (SQLException e) {
+                System.out.println("Error occurred while checking 'employee exists?' in database: " + e.getMessage());
+                e.printStackTrace();
+                return;
+            }
+        }while(!validID);
+        System.out.println("EmployeeID is valid! \t EmployeeId: " + employee_id);
+
+
+        
+
+        //Field selection for updating employee non-profile fields:
+        String[] Fields = {"name", "surname", "dateOfBirth", "dateOfStart", "role"};
+        String updateField = null;
+        String choice = null;
+        boolean validChoice = false;
+
+        while (!validChoice) {
+            System.out.println("Fields of employees to update:");
+            System.out.println("[1] Name");
+            System.out.println("[2] Surname");
+            System.out.println("[3] Date of Birth");
+            System.out.println("[4] Date of Start");
+            System.out.println("[5] Role");
+            System.out.print("Select the employee field you want to update (Select between 1-5): ");
+            choice = scanner.nextLine().trim();
+
+            switch (choice) {
+                case "1":
+                    updateField = "name";
+                    validChoice = true;
+                    break;
+                case "2":
+                    updateField = "surname";
+                    validChoice = true;
+                    break;
+                case "3":
+                    updateField = "dateOfBirth";
+                    validChoice = true;
+                    break;
+                case "4":
+                    updateField = "dateOfStart";
+                    validChoice = true;
+                    break;
+                case "5":
+                    updateField = "role";
+                    validChoice = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select a number between 1 and 5!");
+            }
+        }
+        
+
+        // Inputting new value for employee field to update:
+        String newValue;
+        boolean validValues = false;
+        while (!validValue) {
+            System.out.print("Enter the new value for " + updateField + ": ");
+            newValue = scanner.nextLine().trim().toLowerCase();
+
+            if (!newValue.isEmpty()) {  //Checking for empty input
+                validValue = true;
+            } else {
+                System.out.println("The new value cannot be empty. Please try again.");
+            }
+        }
+
+        // Field update with inputted values:
+        String updateFieldQuery = "UPDATE employees SET " + updateField + " = ? WHERE employee_id = ?";
+        try (Connection connection = start.connect();
+            PreparedStatement updateStatement = connection.prepareStatement(updateFieldQuery)) {
+
+            updateStatement.setString(1, newValue);
+            updateStatement.setString(2, employee_id);
+
+            int updatedRows = updateStatement.executeUpdate();
+            if (updatedRows > 0) {
+                System.out.println("Employee details updated successfully!");
+            } else {
+                System.out.println("Failed to update employee details.");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error occurred in while updating employee details in database: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
     
     
