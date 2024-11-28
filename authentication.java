@@ -23,7 +23,7 @@ public class authentication {
                 String role = resultSet.getString("role");
                 String name = resultSet.getString("name");
                 String surname = resultSet.getString("surname");
-                String phone_no = resultSet.getString("phone_no");
+                String phone_no = resultSet.getString("phoneNo");
                 String dateof_birth = resultSet.getString("dateOfBirth");
                 String dateof_start = resultSet.getString("dateOfStart");
                 String email = resultSet.getString("email");
