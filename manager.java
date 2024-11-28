@@ -100,7 +100,7 @@ class manager extends employee{
         }
     }
 
-    public void displayByRole(){
+    public void displayByRole() {
         //Getting Input from user may operated in main (?)
         String role = "";
         boolean valid = false;
