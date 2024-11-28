@@ -8,10 +8,10 @@ class manager extends employee{
     }
 
     /* public static Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db", "root", "qwerty")
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db", "root", "qwerty");
     */
-    
     public void managerMenu(){
+
     }
 
     public static void displayAllEmployees() {
@@ -150,6 +150,45 @@ class manager extends employee{
         }
     }   
 
+    public static void displayByUsername(){
+        
+        Scanner scanner = new Scanner(System.in);
+        String username = "";
+        boolean valid = false;
+
+        /*kullanıcının girdiği username database'de var mı yok mu onun kontrolü yapılacak, kısacası username için input control ve database controlü.
+        kullanıcıdan input alma işlerini mainde mi yapıcaz fonksiyonlarda herkes kendince yapsın mı?
+        */
+
+
+
+        final String checkUsernameQuery = "SELECT COUNT(*) FROM employees WHERE username = ?";  //Database'de username var mı yok mu kontrol için query.
+        final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, phoneNo, dateOfBirth, dateofStart, email FROM employees WHERE username = ?";
+
+        try(Connection connection = start.connect();
+        PreparedStatement statementForUsername = connection.prepareStatement(displayByUsernameQuery);){
+            statementForUsername.setString(1, username);
+            ResultSet res = statementForUsername.executeQuery();
+            ResultSetMetaData empsByUsername = res.getMetaData();
+            int numOfCols = empsByUsername.getColumnCount();
+
+            System.out.println("=====================================================================");
+            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
+            System.out.println("=====================================================================");
+
+            while(res.next()){
+                for(int i=1; i<=numOfCols;i++){
+                    System.out.printf("%-20s\t", res.getObject(i));
+                }
+                System.out.println();
+            }
+            System.out.println("=====================================================================");
+        }
+        catch (SQLException e) {
+            System.out.println("Error occurred when retrieving data from database by username: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
 
     
 }
