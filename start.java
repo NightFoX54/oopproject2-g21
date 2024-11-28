@@ -4,34 +4,71 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 
+
 public class start{
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        System.setProperty("file.encoding", "UTF-8");
         employee user = null;
         String username;
-        String password;
+        String password = "";
+        int loginAttemp = 0;
+        String close = "";
         while(user == null){
+            if(loginAttemp != 0){
+                System.out.println("Incorrect credentials! Press enter to try again, type X to close the program: ");
+                close = scanner.nextLine();
+            }
             System.out.print("Please type your username to login: ");
             username = scanner.nextLine();
             System.out.print("Please type your password to login: ");
             password = scanner.nextLine();
             user = authentication.login(username,password);
+            loginAttemp++;
+            if(close.equals("X"))
+                break;
         }
-        manager mUser;
-        regularEmployee eUser;
-        if(user.role.equals("manager")){
-            mUser = (manager) user;
-            //manager menu
+        if(!close.equals("X")){
+            manager mUser;
+            regularEmployee eUser;
+            if(user.role.equals("manager")){
+                mUser = (manager) user;
+                mUser.managerMenu();
+            }
+            else{
+                eUser = (regularEmployee) user;
+                //employee menu
+            }
         }
-        else{
-            eUser = (regularEmployee) user;
-            //employee menu
-        }
+    }
+
+    public static void clear(){
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
     
     public static Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/deneme", "root", "179492");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db?useUnicode=true&characterEncoding=utf8", "root", "179492");
+    }
+
+    public static String menuInput(char max, String input, String message){
+        boolean correctInput = false;
+        while(!correctInput){
+            correctInput = true;
+            if(input.length() == 1){
+                if(input.charAt(0) < 'A' || input.charAt(0) > max)
+                    correctInput = false;
+            }
+            else{
+                correctInput = false;
+            }
+            if(!correctInput){
+                System.out.print(message);
+                input = scanner.nextLine();
+            }
+        }
+        return input;
     }
 
     public static String inputControl(String selection, String input, String message){
