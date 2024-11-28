@@ -1,8 +1,8 @@
 import java.sql.*;
 
 class manager extends employee{
-    public manager(String employee_id, String username, String role, String name, String surname, String phoneNo, String dateOfBirth, String dateOfStart, String email) {
-        super(employee_id, username, role, name, surname, phoneNo, dateOfBirth, dateOfStart, email);
+    public manager(String employee_id, String username, String role, String name, String surname, String phone_no, String dateOfBirth, String dateOfStart, String email) {
+        super(employee_id, username, role, name, surname, phone_no, dateOfBirth, dateOfStart, email);
     }
 
     /* public static Connection connect() throws SQLException {
@@ -67,7 +67,7 @@ class manager extends employee{
     }
 
     public void displayAllEmployees() {
-        final String query = "SELECT employee_id, username, name, surname, role, phoneNo, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
+        final String query = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
     
         try (Connection connection = start.connect();
             Statement statement = connection.createStatement();
@@ -154,7 +154,7 @@ class manager extends employee{
         }
     }
 
-    public void displayByRole() {
+    public void displayByRole(){
         //Getting Input from user may operated in main (?)
         String role = "";
         boolean valid = false;
@@ -172,7 +172,7 @@ class manager extends employee{
             }
         }
 
-        final String displayByRoleQuery = "SELECT employee_id, username, name, surname, phoneNo, dateOfBirth, dateOfStart, email FROM employees WHERE role = ?";
+        final String displayByRoleQuery = "SELECT employee_id, username, name, surname, phone_no, dateOfBirth, dateOfStart, email FROM employees WHERE role = ?";
 
         try(Connection connection = start.connect();
             PreparedStatement statementForRoleSort = connection.prepareStatement(displayByRoleQuery);){
@@ -211,8 +211,7 @@ class manager extends employee{
         username = start.scanner.nextLine().toLowerCase();
 
 
-        final String checkUsernameQuery = "SELECT COUNT(*) FROM employees WHERE username = ?";  //Database'de username var mı yok mu kontrol için query.
-        final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, phoneNo, dateOfBirth, dateofStart, email FROM employees WHERE username = ?";
+        final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, phone_no, dateOfBirth, dateofStart, email FROM employees WHERE username = ?";
 
         try(Connection connection = start.connect();
         PreparedStatement statementForUsername = connection.prepareStatement(displayByUsernameQuery);){
@@ -239,7 +238,7 @@ class manager extends employee{
         }
     }
 
-public boolean hireEmployee() {
+    public boolean hireEmployee() {
         String username = "";
         String role = "";
         String name = "";
@@ -377,7 +376,7 @@ public boolean hireEmployee() {
             System.out.println("[4] Date of Start");
             System.out.println("[5] Role");
             System.out.print("Select the employee field you want to update (Select between 1-5): ");
-            choice = scanner.nextLine().trim();
+            choice = start.scanner.nextLine().trim();
 
             switch (choice) {
                 case "1":
@@ -407,11 +406,11 @@ public boolean hireEmployee() {
         
 
         // Inputting new value for employee field to update:
-        String newValue;
+        String newValue = "";
         boolean validValue = false;
         while (!validValue) {
             System.out.print("Enter the new value for " + updateField + ": ");
-            newValue = scanner.nextLine().trim().toLowerCase();
+            newValue = start.scanner.nextLine().trim().toLowerCase();
 
             if (!newValue.isEmpty()) {  //Checking for empty input
                 validValue = true;
@@ -441,6 +440,5 @@ public boolean hireEmployee() {
     }
 
 
-    
     
 }
