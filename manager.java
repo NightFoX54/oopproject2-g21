@@ -47,7 +47,7 @@ class manager extends employee{
                     break;
                 
                 case "F":
-                    //update employee
+                    this.userUpdate();
                     break;
                 
                 case "G":
@@ -328,7 +328,7 @@ class manager extends employee{
 
     }
 
-    public void userUpdate() {
+    public void employeeUpdate() {
     
         String employee_id;
         boolean validID = false;
@@ -336,7 +336,7 @@ class manager extends employee{
 
         //Checking the employee is exist?:
         do {
-            System.out.print("Enter the employee_id of the user you want to update: ");
+            System.out.print("Enter the employee_id of the employee you want to update: ");
             employee_id = start.scanner.nextLine().trim();
 
             try (Connection connection = start.connect();
