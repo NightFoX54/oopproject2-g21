@@ -23,18 +23,18 @@ class manager extends employee{
             int numOfCols = allEmps.getColumnCount();
 
             //Table view for readibilty.
-            System.out.println("=====================================================================");
-            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role", "Phone Number","Date of Birth", "Date of Start", "Email");
-            System.out.println("=====================================================================");
+            System.out.println("========================================================================================================================================================================");
+            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
+            System.out.println("========================================================================================================================================================================");
 
             // To view Query results:
             while (res.next()) {
                 for (int i = 1; i <= numOfCols; i++) {
-                    System.out.printf("%-20s\t", res.getObject(i));
+                    System.out.printf("%-20s", res.getObject(i));
                 }
                 System.out.println();
             }
-            System.out.println("=====================================================================");
+            System.out.println("========================================================================================================================================================================");
         } catch (SQLException e) {
             System.out.println("Error occurred when trying to retrieve data from database: " + e.getMessage());
             e.printStackTrace();
@@ -59,8 +59,8 @@ class manager extends employee{
 
             // To obtain 'name' and 'surname' from database by using 'employee_id':
             try(PreparedStatement statementForNameSurname = connection.prepareStatement(selectQuery);
-            statementForNameSurname.setString(1, employee_id);
             ResultSet res = statementForNameSurname.executeQuery();) {
+                statementForNameSurname.setString(1, employee_id);
                 if (res.next()) {
                     name = res.getString("name");
                     surname = res.getString("surname");
@@ -79,9 +79,9 @@ class manager extends employee{
             }
     
             //Deleting employee from database depending on Managers' decision:
-            try (PreparedStatement statementForDelete = connection.prepareStatement(deleteQuery);
+            try (PreparedStatement statementForDelete = connection.prepareStatement(deleteQuery);){ 
                 statementForDelete.setString(1,employee_id);
-                int deletedRows = statementForDelete.executeUpdate();){ 
+                int deletedRows = statementForDelete.executeUpdate();
 
                 if(deletedRows > 0){
                     System.out.println("Employee "+ name +" "+ surname + " has been fired !");
@@ -128,17 +128,17 @@ class manager extends employee{
             ResultSetMetaData empsByRole = res.getMetaData();
             int numOfCols = empsByRole.getColumnCount();
 
-            System.out.println("=====================================================================");
-            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n","Employee ID", "Username", "Name", "Surname", "Phone Number","Date of Birth","Date of Start", "Email");
-            System.out.println("=====================================================================");
-
+            System.out.println("========================================================================================================================================================================");
+            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
+            System.out.println("========================================================================================================================================================================");
             while(res.next()){
+                
                 for (int i = 1; i <= numOfCols; i++) {
-                    System.out.printf("%-20s\t", res.getObject(i));
+                    System.out.printf("%-20s", res.getObject(i));
                 }
                 System.out.println();
             }
-            System.out.println("=====================================================================");
+            System.out.println("========================================================================================================================================================================");
         }
         catch(SQLException e){
             System.out.println("Error ocurred when retrieving data from database by specified role: "+ e.getMessage());
@@ -167,17 +167,17 @@ class manager extends employee{
             ResultSetMetaData empsByUsername = res.getMetaData();
             int numOfCols = empsByUsername.getColumnCount();
 
-            System.out.println("=====================================================================");
-            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
-            System.out.println("=====================================================================");
+            System.out.println("========================================================================================================================================================================");
+            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
+            System.out.println("========================================================================================================================================================================");
 
             while(res.next()){
                 for(int i=1; i<=numOfCols;i++){
-                    System.out.printf("%-20s\t", res.getObject(i));
+                    System.out.printf("%-20s", res.getObject(i));
                 }
                 System.out.println();
             }
-            System.out.println("=====================================================================");
+            System.out.println("========================================================================================================================================================================");
         }
         catch (SQLException e) {
             System.out.println("Error occurred when retrieving data from database by username: " + e.getMessage());
