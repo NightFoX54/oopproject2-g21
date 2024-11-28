@@ -11,21 +11,25 @@ class manager extends employee{
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/deneme", "root", "179492");
     }
 */
+    public void managerMenu(){
+
+    }
 
     public void displayAllEmployees() {
-        final String query = "SELECT employee_id, username, name, surname, role, phoneNo, email FROM employees"; //SQL query for obtaining data from database.
+        final String query = "SELECT employee_id, username, name, surname, role, phoneNo, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
         Statement statement = null; 
         ResultSet res = null;
 
         try {
+            Connection.connection = start.connect();
             statement = connection.createStatement();
             res = statement.executeQuery(query);
             ResultSetMetaData allEmps = res.getMetaData();
             int numOfCols = allEmps.getColumnCount();
 
-            //Table view for better readibilty
+            //Table view for readibilty.
             System.out.println("=====================================================================");
-            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role", "PhoneNo", "Email");
+            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role", "Phone Number","Date of Birth", "Date of Start" "Email");
             System.out.println("=====================================================================");
 
             // To view Query results:
@@ -39,6 +43,25 @@ class manager extends employee{
         } catch (SQLException e) {
             e.printStackTrace(); 
         } 
+
+        //Manually closing statement and res for preventing memory leak:
+        if(statement != null){
+            try{
+                statement.close();
+            }
+            catch (SQLException e){
+                e.printStackTrace();
+            }
+        }
+
+        if(res != null){
+            try{
+                res.close();
+            }
+            catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     public void managerFire(){
@@ -89,13 +112,18 @@ class manager extends employee{
             int deletedRows = statementForDelete.executeUpdate();
 
             if(deletedRows > 0){
-                System.out.println("Employee "+ name +" "+ surname +" "+ "has been fired !");
+                System.out.println("Employee "+ name +" "+ surname + " has been fired !");
             } 
             else{
-                System.out.println("Employee with "+ employee_id + " " + "has not registered in the database !" );
+                System.out.println("Employee with "+ employee_id + " has not registered in the database!" );
             }
         }
         catch (SQLException e) {
             System.out.println("Some error ocureed when firing wanted employee: " + e.getMessage());
         }
     }
+
+
+
+    
+}
