@@ -1,6 +1,4 @@
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Scanner;
 
 abstract class employee {
@@ -119,5 +117,21 @@ abstract class employee {
 
             }
         }
+    }
+    public boolean checkUser(String username){
+        final String checkUsernameQuery = "SELECT COUNT(*) FROM employees WHERE username = ?";
+        try(Connection connection = start.connect();
+        PreparedStatement statement = connection.prepareStatement(checkUsernameQuery);){
+            statement.setString(1, username);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return result.getInt(1) > 0;
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("Error occurred when retrieving data from database by username: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return false;
     }
 }   
