@@ -119,9 +119,7 @@ public class start{
                     correctInput = true;
                     if(input.length() != 0){
                         for(int i = 0; i < input.length(); i++){
-                            if(input.charAt(i) < 'a' || input.charAt(i) > 'z')
-                                correctInput = false;
-                            if(input.charAt(i) < 'A' || input.charAt(i) > 'Z')
+                            if((input.charAt(i) < 'a' || input.charAt(i) > 'z') && input.charAt(i) != ' ' && (input.charAt(i) < 'A' || input.charAt(i) > 'Z'))
                                 correctInput = false;
                         }
                     }
@@ -162,6 +160,8 @@ public class start{
                                 if(year % 4 != 0 && day > 28)
                                     correctInput = false;
                             }
+                            if(month > 12)
+                                correctInput = false;
                         }
                     }
                     else{
