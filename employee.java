@@ -68,7 +68,7 @@ abstract class employee {
                 case 2:
                     System.out.print("Enter your new phone number: ");
                     newValue = scanner.nextLine();
-                    query = "UPDATE employees SET phoneNo = ? WHERE username = ?";
+                    query = "UPDATE employees SET phone_no = ? WHERE username = ?";
                     break;
                 case 3:
                     System.out.print("Enter your new email: ");
