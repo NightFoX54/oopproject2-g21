@@ -190,6 +190,12 @@ public class start{
                         input = scanner.nextLine();
                     }
                 }
+                break;
+            case "role":
+                while(!input.equals("manager") && !input.equals("engineer") && !input.equals("technician") && !input.equals("intern")){
+                    System.out.print(message);
+                    input = scanner.nextLine();
+                }
         }
         return input;
     }
