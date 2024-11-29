@@ -47,7 +47,7 @@ class manager extends employee{
                     break;
                 
                 case "F":
-                    this.userUpdate();
+                    this.employeeUpdate();
                     break;
                 
                 case "G":
@@ -290,7 +290,7 @@ class manager extends employee{
             start.clear();
             System.out.print("Please type the phone number of the employee: ");
             phone_no = start.scanner.nextLine();
-            phone_no = start.inputControl("number", phone_no, "Incorrect input. Please type the phone number of the employee: ");
+            phone_no = start.inputControl("phone", phone_no, "Incorrect input. Please type the phone number of the employee: ");
             start.clear();
             System.out.print("Please type the date of birth of the employee in YYYY-MM-DD format: ");
             dateof_birth = start.scanner.nextLine();
