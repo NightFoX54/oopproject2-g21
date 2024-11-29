@@ -174,6 +174,17 @@ public class start{
                     }
                 }
                 break;
+            case "phone":
+                correctInput = false;
+                while(!correctInput){
+                    if(input.length() == 10){
+                        input = inputControl("number", input, message);
+                    }
+                    else{
+                        System.out.print(message);
+                        input = scanner.nextLine();
+                    }
+                }
         }
         return input;
     }
