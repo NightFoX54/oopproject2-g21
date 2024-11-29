@@ -104,7 +104,7 @@ class manager extends employee{
         start.clear();
         String selectQuery = "SELECT name, surname FROM employees WHERE employee_id = ?";  
         String deleteQuery = "DELETE FROM employees WHERE employee_id=?"; 
-        String name = null, surname = null, role= null;
+        String name = null, surname = null
 
         System.out.print("Please enter the employee_id of the employee you want to fire:");
         String employee_id = start.scanner.nextLine();
@@ -126,7 +126,6 @@ class manager extends employee{
                 if (res.next()) {
                     name = res.getString("name");
                     surname = res.getString("surname");
-                    role = res.getString("role");
                 } 
                 else {
                     System.out.println("No employee matched with Employee ID: " + employee_id);
