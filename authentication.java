@@ -32,7 +32,7 @@ public class authentication {
                 // Checking the role and create the object according to it.
                 if (role.equalsIgnoreCase("Manager")) {
                     return new manager(employee_id ,_username, role, name, surname, phone_no, dateof_birth, dateof_start, email); 
-                } else if (role.equalsIgnoreCase("RegularEmployee")) {
+                } else {
                     return new regularEmployee(employee_id, _username, role, name, surname, phone_no, dateof_birth, dateof_start, email); 
                 }
             }  
