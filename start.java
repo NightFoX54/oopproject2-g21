@@ -49,6 +49,26 @@ public class start{
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
+
+    public static String upperCaseName(String name){
+        int spaceIndex = 0;
+        int currentIndex = 0;
+        String tempName = "";
+        String tempPartial = "";
+        while(spaceIndex != -1){
+            spaceIndex = name.indexOf(' ');
+            if(spaceIndex == -1){
+                tempPartial = name.substring(currentIndex);
+            }
+            else{
+                tempPartial = name.substring(currentIndex, spaceIndex);
+                currentIndex = spaceIndex + 1;
+            }
+            tempPartial = tempPartial.substring(0,1).toUpperCase() + tempPartial.substring(1);
+            tempName += tempPartial;
+        }
+        return tempName;
+    }
     
     public static Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db?useUnicode=true&characterEncoding=utf8", "root", "179492");
