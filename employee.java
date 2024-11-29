@@ -76,8 +76,8 @@ abstract class employee {
     // Updating the user's profile
     public void updateProfile() {
         boolean updateContinue = true;
-        start.clear();
         while (updateContinue) {
+            start.clear();
             // Update profile menu
             System.out.println("\n    Update Profile ");
             System.out.println("Which information would you like to update?");
@@ -91,7 +91,7 @@ abstract class employee {
 
             String query = null;
             String newValue = null;
-    
+            start.clear();
             // Selection of which part to update
             switch (input) {
                 case "A":
@@ -118,7 +118,7 @@ abstract class employee {
                     System.out.println("Your choice is invalid, please enter a number between 1-4.");
                     continue;
             }
-            
+            start.clear();
             try (Connection connection = start.connect(); PreparedStatement statement = connection.prepareStatement(query)) {
                 statement.setString(1, newValue);
                 statement.setString(2, username);
