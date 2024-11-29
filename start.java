@@ -120,7 +120,7 @@ public class start{
                     correctInput = true;
                     if(input.length() != 0){
                         for(int i = 0; i < input.length(); i++){
-                            if((input.charAt(i) < 'a' || input.charAt(i) > 'z') && input.charAt(i) != ' ' && (input.charAt(i) < 'A' || input.charAt(i) > 'Z'))
+                            if((input.charAt(i) < 'a' || input.charAt(i) > 'z') && input.charAt(i) != ' ' && (input.charAt(i) < 'A' || input.charAt(i) > 'Z') && "çğöşüÇĞÖŞÜİı".indexOf(input.charAt(i)) == -1)
                                 correctInput = false;
                         }
                     }
@@ -177,10 +177,12 @@ public class start{
             case "phone":
                 correctInput = false;
                 while(!correctInput){
+                    correctInput = true;
                     if(input.length() == 10){
                         input = inputControl("number", input, message);
                     }
                     else{
+                        correctInput = false;
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
