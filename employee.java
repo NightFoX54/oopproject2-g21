@@ -44,6 +44,8 @@ abstract class employee {
                     statement2.setString(1, password);
                     if(statement2.executeUpdate() > 0){
                         System.out.println("Password is updated.");
+                        System.out.print("Press enter to continue: ");
+                        start.scanner.nextLine();
                     }
                     // Update information
                     
@@ -57,21 +59,24 @@ abstract class employee {
     }
 
     public void displayProfile() {
-    // Printing the profile of the employee
-    System.out.println("===================================================================================================================================================================================");
-    System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n",
-        "Employee ID", "Username", "Role", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
-    System.out.println("===================================================================================================================================================================================");
-    System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n",
-        employee_id, username, role, name, surname, phoneNo, dateOfBirth, dateOfStart, email);
-    System.out.println("===================================================================================================================================================================================");
+        start.clear();
+        // Printing the profile of the employee
+        System.out.println("===================================================================================================================================================================================");
+        System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n",
+            "Employee ID", "Username", "Role", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
+        System.out.println("===================================================================================================================================================================================");
+        System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n",
+            employee_id, username, role, name, surname, phoneNo, dateOfBirth, dateOfStart, email);
+        System.out.println("===================================================================================================================================================================================");
+        System.out.print("Press enter to continue: ");
+        start.scanner.nextLine();
 
     }
     
     // Updating the user's profile
     public void updateProfile() {
         boolean updateContinue = true;
-    
+        start.clear();
         while (updateContinue) {
             // Update profile menu
             System.out.println("\n    Update Profile ");
