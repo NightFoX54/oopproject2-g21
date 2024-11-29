@@ -108,9 +108,12 @@ class manager extends employee{
 
         System.out.print("Please enter the employee_id of the employee you want to fire:");
         String employee_id = start.scanner.nextLine();
+        employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again: ");
 
         if(this.employee_id.equals(employee_id)){
             System.out.println("The manager cannot fire himself/herself !");
+            System.out.print("Press enter to continue: ");
+            start.scanner.nextLine();
             return;
         }
 
@@ -166,20 +169,13 @@ class manager extends employee{
     public void displayByRole(){
         //Getting Input from user may operated in main (?)
         String role = "";
-        boolean valid = false;
+
          
         start.clear();
-        while (!valid){
-            System.out.print("Enter the role for sorting employees for organized display (Roles: manager, engineer, technician, intern): ");
-            role = start.scanner.nextLine().toLowerCase();
-
-            if(role.equals("manager")||role.equals("engineer")||role.equals("technician")||role.equals("intern")){
-                valid=true;
-            }
-            else{
-                System.out.println("The role that you entered is invalid! Please type again (Roles: manager, engineer, technician, intern): ");
-            }
-        }
+        System.out.print("Enter the role for sorting employees for organized display (Roles: manager, engineer, technician, intern): ");
+        role = start.scanner.nextLine().toLowerCase();
+        role = start.inputControl("role", role, "The role that you entered is invalid! Please type again (Roles: manager, engineer, technician, intern): ");
+            
 
         final String displayByRoleQuery = "SELECT employee_id, username, name, surname, phone_no, dateOfBirth, dateOfStart, email FROM employees WHERE role = ?";
 
@@ -297,16 +293,20 @@ class manager extends employee{
                 usernameTrial++;
             }
             start.clear();
+            System.out.println("Available roles are: manager, engineer, technician, intern");
             System.out.print("Please type the role of the employee: ");
-            role = start.scanner.nextLine();
+            role = start.scanner.nextLine().toLowerCase();
+            role = start.inputControl("role", role, "Incorrect input! Please type again: ");
             start.clear();
             System.out.print("Please type the name of the employee: ");
-            name = start.scanner.nextLine();
+            name = start.scanner.nextLine().toLowerCase();
             name = start.inputControl("letter", name, "Incorrect input. Please type the name of the employee: ");
+            name = start.upperCaseName(name);
             start.clear();
             System.out.print("Please type the surname of the employee: ");
-            surname = start.scanner.nextLine();
+            surname = start.scanner.nextLine().toLowerCase();
             surname = start.inputControl("letter", surname, "Incorrect input. Please type the name of the employee: ");
+            surname = start.upperCaseName(surname);
             start.clear();
             System.out.print("Please type the phone number of the employee: ");
             phone_no = start.scanner.nextLine();
@@ -355,12 +355,13 @@ class manager extends employee{
         String employee_id;
         boolean validID = false;
         String checkEmpID = "SELECT * FROM employees WHERE employee_id = ?";
-
+        String employeeName = "";
         //Checking the employee is exist?:
         do {
             System.out.print("Enter the employee_id of the employee you want to update: ");
-            employee_id = start.scanner.nextLine().trim();
-
+            employee_id = start.scanner.nextLine();
+            employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again: ");
+            start.clear();
             try (Connection connection = start.connect();
                 PreparedStatement checkStatement = connection.prepareStatement(checkEmpID)) {
 
@@ -368,8 +369,9 @@ class manager extends employee{
                 ResultSet res = checkStatement.executeQuery();
 
                 if (res.next()) {
+                    employeeName = res.getString("name") + " " + res.getString("surname");
                     validID = true; 
-                    System.out.println("Employee found: "+ employee_id+ " " + res.getString("name") + " " + res.getString("surname"));
+                    System.out.println("Employee found: "+ employee_id+ " " + employeeName);
                 } else {
                     System.out.println("No employee found with EmployeeID: " + employee_id + " Please enter the EmployeeID again!");
                 }
@@ -379,67 +381,60 @@ class manager extends employee{
                 return;
             }
         }while(!validID);
-        System.out.println("EmployeeID is valid! \t EmployeeId: " + employee_id);
 
 
         
-
         //Field selection for updating employee non-profile fields:
-        String[] Fields = {"name", "surname", "dateOfBirth", "dateOfStart", "role"};
         String updateField = null;
         String choice = null;
-        boolean validChoice = false;
 
-        while (!validChoice) {
-            System.out.println("Fields of employees to update:");
-            System.out.println("[1] Name");
-            System.out.println("[2] Surname");
-            System.out.println("[3] Date of Birth");
-            System.out.println("[4] Date of Start");
-            System.out.println("[5] Role");
-            System.out.print("Select the employee field you want to update (Select between 1-5): ");
-            choice = start.scanner.nextLine().trim();
-
-            switch (choice) {
-                case "1":
-                    updateField = "name";
-                    validChoice = true;
-                    break;
-                case "2":
-                    updateField = "surname";
-                    validChoice = true;
-                    break;
-                case "3":
-                    updateField = "dateOfBirth";
-                    validChoice = true;
-                    break;
-                case "4":
-                    updateField = "dateOfStart";
-                    validChoice = true;
-                    break;
-                case "5":
-                    updateField = "role";
-                    validChoice = true;
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please select a number between 1 and 5!");
-            }
-        }
-        
-
-        // Inputting new value for employee field to update:
+        System.out.println("Fields to update:");
+        System.out.println("[A] Name");
+        System.out.println("[B] Surname");
+        System.out.println("[C] Date of Birth");
+        System.out.println("[D] Date of Start");
+        System.out.println("[E] Role");
+        System.out.print("Select the employee field you want to update: ");
+        choice = start.scanner.nextLine();
+        choice = start.menuInput('E', choice, "Incorrect input! Please type again: ");
         String newValue = "";
-        boolean validValue = false;
-        while (!validValue) {
-            System.out.print("Enter the new value for " + updateField + ": ");
-            newValue = start.scanner.nextLine().trim().toLowerCase();
-
-            if (!newValue.isEmpty()) {  //Checking for empty input
-                validValue = true;
-            } else {
-                System.out.println("The new value cannot be empty. Please try again.");
-            }
+        start.clear();
+        switch (choice) {
+            case "A":
+                updateField = "name";
+                System.out.print("Enter the new name for " + employeeName +": ");
+                newValue = start.scanner.nextLine().toLowerCase();
+                newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
+                newValue = start.upperCaseName(newValue);
+                break;
+            case "B":
+                updateField = "surname";
+                System.out.print("Enter the new surnamename for " + employeeName +": ");
+                newValue = start.scanner.nextLine().toLowerCase();
+                newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
+                newValue = start.upperCaseName(newValue);
+                break;
+            case "C":
+                updateField = "dateOfBirth";
+                System.out.print("Enter the new date of birth for " + employeeName +" in 'YYYY-MM-DD' format: ");
+                newValue = start.scanner.nextLine().toLowerCase();
+                newValue = start.inputControl("date", newValue, "Incorrect input! Please type again: ");
+                break;
+            case "D":
+                updateField = "dateOfStart";
+                System.out.print("Enter the new date of start for " + employeeName +" in 'YYYY-MM-DD' format: ");
+                newValue = start.scanner.nextLine().toLowerCase();
+                newValue = start.inputControl("date", newValue, "Incorrect input! Please type again: ");
+                break;
+            case "E":
+                updateField = "role";
+                System.out.println("Available roles are: manager, engineer, technician, intern");
+                System.out.print("Enter the new role for " + employeeName +": ");
+                newValue = start.scanner.nextLine().toLowerCase();
+                newValue = start.inputControl("role", newValue, "Incorrect input! Please type again: ");
+                break;
         }
+        start.clear();
 
         // Field update with inputted values:
         String updateFieldQuery = "UPDATE employees SET " + updateField + " = ? WHERE employee_id = ?";
