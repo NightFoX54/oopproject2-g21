@@ -103,8 +103,8 @@ class manager extends employee{
     public void managerFire(){
         start.clear();
         String selectQuery = "SELECT name, surname FROM employees WHERE employee_id = ?";  
-        String deleteQuery = "DELETE FROM employees WHERE employee_id=?"; 
-        String name = null, surname = null
+        String deleteQuery = "DELETE FROM employees WHERE employee_id = ? "; 
+        String name = null, surname = null;
 
         System.out.print("Please enter the employee_id of the employee you want to fire:");
         String employee_id = start.scanner.nextLine();
@@ -120,9 +120,10 @@ class manager extends employee{
         try(Connection connection = start.connect()) {
 
             // To obtain 'name' and 'surname' from database by using 'employee_id':
-            try(PreparedStatement statementForNameSurname = connection.prepareStatement(selectQuery);
-            ResultSet res = statementForNameSurname.executeQuery();) {
+            try(PreparedStatement statementForNameSurname = connection.prepareStatement(selectQuery)) {
                 statementForNameSurname.setString(1, employee_id);
+                ResultSet res = statementForNameSurname.executeQuery();
+
                 if (res.next()) {
                     name = res.getString("name");
                     surname = res.getString("surname");
@@ -163,6 +164,7 @@ class manager extends employee{
             System.out.println("Error ocurred when connecting to database!"+ e.getMessage());
             e.printStackTrace();
         }
+        start.scanner.nextLine();
     }
 
     public void displayByRole(){
