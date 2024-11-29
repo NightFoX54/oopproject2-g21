@@ -79,10 +79,12 @@ public class start{
                 boolean correctInput = false;
                 while(!correctInput){
                     correctInput = true;
-                    if(input.length() != 0){
-                        if(!input.contains("@khas.firm")){
+                    if(input.length() > 10){
+                        if(!input.substring(input.length() - 10).equals("@khas.firm")){
                             correctInput = false;
                         }
+                        if(input.contains(" "))
+                            correctInput = false;
                     }
                     else{
                         correctInput = false;
