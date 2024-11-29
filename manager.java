@@ -9,10 +9,10 @@ class manager extends employee{
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db", "root", "qwerty");
     */
     public void managerMenu(){
-        start.clear();
-        System.out.println("Welcome " + this.name + " " + this.surname + "\n");
         String operation = "";
         while(!operation.equals("I")){
+            start.clear();
+            System.out.println("Welcome " + this.name + " " + this.surname + "\n");
             System.out.println("[A] Display Own Profile");
             System.out.println("[B] Update Own Profile");
             System.out.println("[C] Display All Employees");
@@ -68,7 +68,7 @@ class manager extends employee{
 
     public void displayAllEmployees() {
         final String query = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
-    
+        start.clear();
         try (Connection connection = start.connect();
             Statement statement = connection.createStatement();
             ResultSet res = statement.executeQuery(query);
@@ -77,18 +77,23 @@ class manager extends employee{
             int numOfCols = allEmps.getColumnCount();
 
             //Table view for readibilty.
-            System.out.println("========================================================================================================================================================================");
-            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role", "Phone Number","Date of Birth", "Date of Start", "Email");
-            System.out.println("========================================================================================================================================================================");
+            System.out.println("===================================================================================================================================================================================");
+            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role", "Phone Number","Date of Birth", "Date of Start", "Email");
+            System.out.println("===================================================================================================================================================================================");
 
             // To view Query results:
             while (res.next()) {
                 for (int i = 1; i <= numOfCols; i++) {
-                    System.out.printf("%-20s", res.getObject(i));
+                    if(i == 1)
+                        System.out.printf("%-15s", res.getObject(i));
+                    else
+                        System.out.printf("%-20s", res.getObject(i));
                 }
                 System.out.println();
             }
-            System.out.println("========================================================================================================================================================================");
+            System.out.println("===================================================================================================================================================================================");
+            System.out.print("Press enter to continue: ");
+            start.scanner.nextLine();
         } catch (SQLException e) {
             System.out.println("Error occurred when trying to retrieve data from database: " + e.getMessage());
             e.printStackTrace();
@@ -96,7 +101,7 @@ class manager extends employee{
     }
 
     public void managerFire(){
-
+        start.clear();
         String selectQuery = "SELECT name, surname FROM employees WHERE employee_id = ?";  
         String deleteQuery = "DELETE FROM employees WHERE employee_id=?"; 
         String name = null, surname = null, role= null;
@@ -139,9 +144,13 @@ class manager extends employee{
 
                 if(deletedRows > 0){
                     System.out.println("Employee "+ name +" "+ surname + " has been fired !");
+                    System.out.print("Press enter to continue: ");
+                    start.scanner.nextLine();
                 } 
                 else{
                     System.out.println("Employee with "+ employee_id + " has not registered in the database!" );
+                    System.out.print("Press enter to continue: ");
+                    start.scanner.nextLine();
                 }
             }
             catch (SQLException e) {
@@ -159,7 +168,7 @@ class manager extends employee{
         String role = "";
         boolean valid = false;
          
-        
+        start.clear();
         while (!valid){
             System.out.print("Enter the role for sorting employees for organized display (Roles: manager, engineer, technician, intern): ");
             role = start.scanner.nextLine().toLowerCase();
@@ -183,16 +192,21 @@ class manager extends employee{
             int numOfCols = empsByRole.getColumnCount();
 
             System.out.println("========================================================================================================================================================================");
-            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
+            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
             System.out.println("========================================================================================================================================================================");
             while(res.next()){
                 
                 for (int i = 1; i <= numOfCols; i++) {
-                    System.out.printf("%-20s", res.getObject(i));
+                    if(i == 1)
+                        System.out.printf("%-15s", res.getObject(i));
+                    else
+                        System.out.printf("%-20s", res.getObject(i));
                 }
                 System.out.println();
             }
             System.out.println("========================================================================================================================================================================");
+            System.out.print("Press enter to continue: ");
+            start.scanner.nextLine();
         }
         catch(SQLException e){
             System.out.println("Error ocurred when retrieving data from database by specified role: "+ e.getMessage());
@@ -203,7 +217,7 @@ class manager extends employee{
     public void displayByUsername(){
         String username = "";
         boolean valid = false;
-
+        start.clear();
         /*kullanıcının girdiği username database'de var mı yok mu onun kontrolü yapılacak, kısacası username için input control ve database controlü.
         kullanıcıdan input alma işlerini mainde mi yapıcaz fonksiyonlarda herkes kendince yapsın mı?
         */
@@ -211,7 +225,7 @@ class manager extends employee{
         username = start.scanner.nextLine().toLowerCase();
 
 
-        final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, phone_no, dateOfBirth, dateofStart, email FROM employees WHERE username = ?";
+        final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateofStart, email FROM employees WHERE username = ?";
 
         try(Connection connection = start.connect();
         PreparedStatement statementForUsername = connection.prepareStatement(displayByUsernameQuery);){
@@ -220,17 +234,22 @@ class manager extends employee{
             ResultSetMetaData empsByUsername = res.getMetaData();
             int numOfCols = empsByUsername.getColumnCount();
 
-            System.out.println("========================================================================================================================================================================");
-            System.out.printf("%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Phone Number", "Date of Birth", "Date of Start", "Email");
-            System.out.println("========================================================================================================================================================================");
+            System.out.println("===================================================================================================================================================================================");
+            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role", "Phone Number", "Date of Birth", "Date of Start", "Email");
+            System.out.println("===================================================================================================================================================================================");
 
             while(res.next()){
                 for(int i=1; i<=numOfCols;i++){
-                    System.out.printf("%-20s", res.getObject(i));
+                    if(i == 1)
+                        System.out.printf("%-15s", res.getObject(i));
+                    else
+                        System.out.printf("%-20s", res.getObject(i));
                 }
                 System.out.println();
             }
-            System.out.println("========================================================================================================================================================================");
+            System.out.println("===================================================================================================================================================================================");
+            System.out.print("Press enter to continue: ");
+            start.scanner.nextLine();
         }
         catch (SQLException e) {
             System.out.println("Error occurred when retrieving data from database by username: " + e.getMessage());
@@ -239,6 +258,7 @@ class manager extends employee{
     }
 
     public boolean hireEmployee() {
+        start.clear();
         String username = "";
         String role = "";
         String name = "";
@@ -318,6 +338,8 @@ class manager extends employee{
 
             if (status > 0) {
                 System.out.println("Employee added succesfully!");
+                System.out.print("Press enter to continue: ");
+                start.scanner.nextLine();
             }
 
             return status > 0;
@@ -329,7 +351,7 @@ class manager extends employee{
     }
 
     public void employeeUpdate() {
-    
+        start.clear();
         String employee_id;
         boolean validID = false;
         String checkEmpID = "SELECT * FROM employees WHERE employee_id = ?";
@@ -430,8 +452,12 @@ class manager extends employee{
             int updatedRows = updateStatement.executeUpdate();
             if (updatedRows > 0) {
                 System.out.println("Employee details updated successfully!");
+                System.out.print("Press enter to continue: ");
+                start.scanner.nextLine();
             } else {
                 System.out.println("Failed to update employee details.");
+                System.out.print("Press enter to continue: ");
+                start.scanner.nextLine();
             }
         } catch (SQLException e) {
             System.out.println("Error occurred in while updating employee details in database: " + e.getMessage());
