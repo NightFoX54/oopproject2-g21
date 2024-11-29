@@ -9,6 +9,7 @@ public class start{
     static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        clear();
         System.setProperty("file.encoding", "UTF-8");
         employee user = null;
         String username;
@@ -39,7 +40,7 @@ public class start{
             }
             else{
                 eUser = (regularEmployee) user;
-                //employee menu
+                eUser.regularEmployeeeMenu();
             }
         }
     }
