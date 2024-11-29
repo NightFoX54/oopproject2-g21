@@ -1,5 +1,4 @@
 import java.sql.*;
-import java.util.Scanner;
 
 abstract class employee {
     protected String employee_id;
@@ -71,42 +70,43 @@ abstract class employee {
     
     // Updating the user's profile
     public void updateProfile() {
-        Scanner scanner = new Scanner(System.in);
         boolean updateContinue = true;
     
         while (updateContinue) {
             // Update profile menu
             System.out.println("\n    Update Profile ");
             System.out.println("Which information would you like to update?");
-            System.out.println("[1] Password");
-            System.out.println("[2] Phone Number");
-            System.out.println("[3] Email");
-            System.out.println("[4] Go Back");
-            System.out.print("Choose an option between 1-4: ");
-            int input = scanner.nextInt();
-            scanner.nextLine();
+            System.out.println("[A] Password");
+            System.out.println("[B] Phone Number");
+            System.out.println("[C] Email");
+            System.out.println("[D] Go Back");
+            System.out.print("Choose the operation you want to do: ");
+            String input = start.scanner.nextLine();
+            input = start.menuInput('D', input, "Incorrect input! Type again to select the operation: ");
 
             String query = null;
             String newValue = null;
     
             // Selection of which part to update
             switch (input) {
-                case 1:
+                case "A":
                     System.out.print("Enter your new password: ");
-                    newValue = scanner.nextLine();
+                    newValue = start.scanner.nextLine();
                     query = "UPDATE employees SET password = ? WHERE username = ?";
                     break;
-                case 2:
-                    System.out.print("Enter your new phone number: ");
-                    newValue = scanner.nextLine();
+                case "B":
+                    System.out.print("Enter your new phone number without 0 at the beginning: ");
+                    newValue = start.scanner.nextLine();
+                    newValue = start.inputControl("phone", newValue, "Incorrect input! Please type your new phone number without 0 at the beginning");
                     query = "UPDATE employees SET phone_no = ? WHERE username = ?";
                     break;
-                case 3:
-                    System.out.print("Enter your new email: ");
-                    newValue = scanner.nextLine();
+                case "C":
+                    System.out.print("Enter your new email in 'XXX@khas.firm' format: ");
+                    newValue = start.scanner.nextLine();
+                    newValue = start.inputControl("mail", newValue, "Incorrect input! Please type your email in 'XXX@khas.firm' format: ");
                     query = "UPDATE employees SET email = ? WHERE username = ?";
                     break;
-                case 4:
+                case "D":
                     System.out.println("Returning to previous menu.");
                     return;
                 default:
@@ -123,10 +123,10 @@ abstract class employee {
                     System.out.println("Profile is updated.");
     
                     // Update information
-                    if (input == 2) {
+                    if (input.equals("B")) {
                     this.phoneNo = newValue;
                     }
-                    if (input == 3){
+                    if (input.equals("C")){
                     this.email = newValue;
                     }
 
@@ -140,7 +140,11 @@ abstract class employee {
     
             // Ask the user if they want to update again
             System.out.print("Would you like to update another information? (yes/no): ");
-            String response = scanner.nextLine();
+            String response = start.scanner.nextLine();
+            while(!response.equalsIgnoreCase("no") && !response.equalsIgnoreCase("yes")){
+                System.out.print("Incorrect input! Please type 'yes' or 'no': ");
+                response = start.scanner.nextLine();
+            }
             // Turning back to menu
             if (response.equalsIgnoreCase("no")) {
                 updateContinue = false;
