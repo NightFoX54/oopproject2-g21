@@ -6,10 +6,10 @@ class regularEmployee extends employee{
 
 
     public void regularEmployeeeMenu(){
-        start.clear();
-        System.out.println("Welcome " + this.name + " " + this.surname + "\n");
         String operation = "";
         while(!operation.equals("C")){
+            start.clear();
+            System.out.println("Welcome " + this.name + " " + this.surname + "\n");
             System.out.println("[A] Display Own Profile");
             System.out.println("[B] Update Own Profile");
             System.out.println("[C] Log Out.");
