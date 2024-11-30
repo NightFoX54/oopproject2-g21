@@ -9,7 +9,7 @@ public class authentication {
 
     public static employee login(String username, String password) {
         //First, we query the database with the provided username and password.
-        String query = "SELECT * FROM employees WHERE username = ? AND password = ?";
+        String query = "SELECT * FROM employees WHERE username COLLATE utf8mb4_bin = ? AND password COLLATE utf8mb4_bin = ?";
         try (Connection connection = start.connect(); PreparedStatement statement = connection.prepareStatement(query)) {
             statement.setString(1, username);
             statement.setString(2, password);
