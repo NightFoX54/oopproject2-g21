@@ -222,7 +222,7 @@ class manager extends employee{
         username = start.scanner.nextLine().toLowerCase();
 
 
-        final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateofStart, email FROM employees WHERE username = ?";
+        final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateofStart, email FROM employees WHERE username COLLATE utf8mb4_bin = ?";
 
         try(Connection connection = start.connect();
         PreparedStatement statementForUsername = connection.prepareStatement(displayByUsernameQuery);){
@@ -399,7 +399,7 @@ class manager extends employee{
         System.out.println("[C] Date of Birth");
         System.out.println("[D] Date of Start");
         System.out.println("[E] Role");
-        Systen.out.println("[F] Username");
+        System.out.println("[F] Username");
         System.out.print("Select the employee field you want to update: ");
         choice = start.scanner.nextLine();
         choice = start.menuInput('E', choice, "Incorrect input! Please type again: ");
@@ -470,7 +470,7 @@ class manager extends employee{
                     System.out.print("Enter the new username for " + employeeName +": ");
                     newValue = start.scanner.nextLine().toLowerCase();
                     newValue = start.inputControl("username", newValue, "Incorrect input! Please type again: ");
-                    if(newValue.equals(username)){
+                    if(newValue.equals(employeeUserName)){
                         start.clear();
                         System.out.println("The new username cannot be same! Please type again: ");
                     }
