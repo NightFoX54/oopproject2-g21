@@ -18,17 +18,17 @@ public class start{
         String close = "";
         while(user == null){
             if(loginAttemp != 0){
-                System.out.println("Incorrect credentials! Press enter to try again, type X to close the program: ");
+                System.out.print("Incorrect credentials! Press enter to try again, type X to close the program: ");
                 close = scanner.nextLine();
             }
+            if(close.equals("X"))
+                break;
             System.out.print("Please type your username to login: ");
             username = scanner.nextLine();
             System.out.print("Please type your password to login: ");
             password = scanner.nextLine();
             user = authentication.login(username,password);
             loginAttemp++;
-            if(close.equals("X"))
-                break;
         }
         if(!close.equals("X")){
             user.defaultPasswordChange();
