@@ -13,6 +13,11 @@ public class start{
     public static void main(String[] args) {
         clear();
         System.setProperty("file.encoding", "UTF-8");
+        try {
+            Animation.animation();
+        } catch (InterruptedException ex) {
+        }
+        clear();
         employee user = null;
         String username;
         String password = "";
