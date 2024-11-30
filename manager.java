@@ -10,7 +10,7 @@ class manager extends employee{
     */
     public void managerMenu(){
         String operation = "";
-        while(!operation.equals("I")){
+        while(!operation.equals("J")){
             start.clear();
             System.out.println("Welcome " + this.name + " " + this.surname + "\n");
             System.out.println("[A] Display Own Profile");
@@ -21,10 +21,11 @@ class manager extends employee{
             System.out.println("[F] Update Employee");
             System.out.println("[G] Hire Employee");
             System.out.println("[H] Fire Employee");
-            System.out.println("[I] Log Out.");
+            System.out.println("[I] Algorithms");
+            System.out.println("[J] Log Out.");
             System.out.print("Choose the operation you want to do: ");
             operation = start.scanner.nextLine();
-            operation = start.menuInput('I', operation, "Incorrect input! Type again to select the operation: ");
+            operation = start.menuInput('J', operation, "Incorrect input! Type again to select the operation: ");
             switch(operation){
                 case "A":
                     this.displayProfile();
@@ -59,6 +60,9 @@ class manager extends employee{
                     break;
 
                 case "I":
+                    algorithms.algorithm();
+                    break;
+                case "J":
                     // log out
                     break;
             }
