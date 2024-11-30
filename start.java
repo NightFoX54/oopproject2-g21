@@ -1,6 +1,8 @@
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
@@ -159,6 +161,7 @@ public class start{
             
             case "date":
                 correctInput = false;
+                LocalDate currentDate = LocalDate.now();
                 while(!correctInput){
                     correctInput = true;
                     if(input.length() == 10){
@@ -186,6 +189,11 @@ public class start{
                             }
                             if(month > 12)
                                 correctInput = false;
+
+                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                            LocalDate inputDate = LocalDate.parse(input, formatter);
+                            if(inputDate.isAfter(currentDate))
+                                correctInput = false;
                         }
                     }
                     else{
@@ -197,6 +205,28 @@ public class start{
                     }
                 }
                 break;
+            case "birth":
+                correctInput = false;
+                currentDate = LocalDate.now();
+                while(!correctInput){
+                    correctInput = true;
+                    inputControl("date", input, message);
+                    int currYear = currentDate.getYear();
+                    int currMonth = currentDate.getMonthValue(); // Numeric value of the month (1-12)
+                    int currDay = currentDate.getDayOfMonth();
+                    int year = algorithms.toInt(input.substring(0,4));
+                    int month = algorithms.toInt(input.substring(5,7));
+                    int day = algorithms.toInt(input.substring(8));
+                    boolean is18 = true;
+                    if(currMonth < month || (currMonth == month && currDay < day))
+                        is18 = false;
+                    if(currYear - year < 18 || (currYear - year == 18 && is18 == false))
+                        correctInput = false;
+                    
+                    if(correctInput == false)
+                        System.out.println("Employee can't be younger than 18 years old!");
+                }
+
             case "phone":
                 correctInput = false;
                 while(!correctInput){
