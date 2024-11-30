@@ -164,7 +164,7 @@ class manager extends employee{
             System.out.println("Error ocurred when connecting to database!"+ e.getMessage());
             e.printStackTrace();
         }
-        start.scanner.nextLine();
+
     }
 
     public void displayByRole(){
@@ -357,6 +357,7 @@ class manager extends employee{
         boolean validID = false;
         String checkEmpID = "SELECT * FROM employees WHERE employee_id = ?";
         String employeeName = "";
+        String employeeRole = "";
         //Checking the employee is exist?:
         do {
             System.out.print("Enter the employee_id of the employee you want to update: ");
@@ -368,9 +369,10 @@ class manager extends employee{
 
                 checkStatement.setString(1, employee_id);
                 ResultSet res = checkStatement.executeQuery();
-
+                
                 if (res.next()) {
                     employeeName = res.getString("name") + " " + res.getString("surname");
+                    employeeRole = res.getString("role");
                     validID = true; 
                     System.out.println("Employee found: "+ employee_id+ " " + employeeName);
                 } else {
