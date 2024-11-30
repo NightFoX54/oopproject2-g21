@@ -49,8 +49,6 @@ abstract class employee {
                     }
                     // Update information
                     
-                } else {
-                    System.out.println("Error occured while updating profile.");
                 }
     
             } catch (SQLException e) {
