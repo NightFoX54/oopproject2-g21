@@ -431,10 +431,34 @@ class manager extends employee{
                 break;
             case "E":
                 updateField = "role";
-                System.out.println("Available roles are: manager, engineer, technician, intern");
-                System.out.print("Enter the new role for " + employeeName +": ");
-                newValue = start.scanner.nextLine().toLowerCase();
-                newValue = start.inputControl("role", newValue, "Incorrect input! Please type again: ");
+                boolean flag = true;
+                while(flag){
+                    switch(employeeRole){
+                        case "manager":
+                            System.out.println("Available roles are: engineer, technician, intern");
+                            break;
+                        case "engineer":
+                            System.out.println("Available roles are: manager, technician, intern");
+                            break;
+                        case "technician":
+                            System.out.println("Available roles are: manager, engineer, intern");
+                            break;
+                        case "intern":
+                            System.out.println("Available roles are: manager, engineer, technician");
+                            break;
+                    }
+
+                    System.out.print("Enter the new role for " + employeeName +": ");
+                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.inputControl("role", newValue, "Incorrect input! Please type again: ");
+                    if(employeeRole.equals(newValue)){
+                        start.clear();
+                        System.out.println("Employee's previous and new role can't be the same!");
+                    }
+                    else
+                        flag = false;
+                        
+                }
                 break;
         }
         start.clear();
