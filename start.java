@@ -189,11 +189,12 @@ public class start{
                             }
                             if(month > 12)
                                 correctInput = false;
-
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                            LocalDate inputDate = LocalDate.parse(input, formatter);
-                            if(inputDate.isAfter(currentDate))
-                                correctInput = false;
+                            if(correctInput){
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                                LocalDate inputDate = LocalDate.parse(input, formatter);
+                                if(inputDate.isAfter(currentDate))
+                                    correctInput = false;
+                            }
                         }
                     }
                     else{
@@ -223,9 +224,13 @@ public class start{
                     if(currYear - year < 18 || (currYear - year == 18 && is18 == false))
                         correctInput = false;
                     
-                    if(correctInput == false)
+                    if(correctInput == false){
                         System.out.println("Employee can't be younger than 18 years old!");
+                        System.out.print("Please type again: ");
+                        input = scanner.nextLine();
+                    }
                 }
+                break;
 
             case "phone":
                 correctInput = false;
