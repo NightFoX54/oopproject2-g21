@@ -5,64 +5,94 @@ public class algorithms{
 
     public static void algorithm()
     {  
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Type a number between 1000 and 10000 to declare the size of the array: ");
-        String size_string = scanner.nextLine();
-        int size = toInt(size_string);
-        Random rand = new Random();
-        List<Integer> arr = new ArrayList<Integer>();
-        for(int i = 0; i < size; i++){
-            arr.add(rand.nextInt(20000) - 10000);
+        String size_string = "";
+        while(!size_string.equals("X")){
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Type a number between 1000 and 10000 to declare the size of the array ((X) to go back): ");
+            size_string = start.scanner.nextLine();
+            int size;
+            if(!size_string.equals("X")){
+                size_string = start.inputControl("number", size_string, "Invalid input. Please enter a number between 1000 and 10000:");
+                size = toInt(size_string);
+                while(size < 1000 || size > 10000){
+                    System.out.print("Please type a number between 1000 and 10000: ");
+                    size_string = start.scanner.nextLine();
+                    size_string = start.inputControl("number", size_string, "Invalid input. Please enter a number between 1000 and 10000:");
+                    size = toInt(size_string);
+                }
+            }else{
+                start.clear();
+                return;
+            }
+    
+            Random rand = new Random();
+            List<Integer> arr = new ArrayList<Integer>();
+            for(int i = 0; i < size; i++){
+                arr.add(rand.nextInt(20000) - 10000);
+            }
+            int radix[] = new int[size];
+            int shell[] = new int[size];
+            int heap[] = new int[size];
+            int insertion[] = new int[size];
+            copyArray(arr, radix);
+            copyArray(arr, shell);
+            copyArray(arr, heap);
+            copyArray(arr, insertion);
+            long startTime = System.nanoTime();
+            arr.sort(new IntegerAscendingComparator());
+            long endTime = System.nanoTime();
+            long defaultExecutionTime = endTime - startTime;
+            print(arr,arr.size());
+            startTime = System.nanoTime();
+            radixsort(radix, radix.length);
+            endTime = System.nanoTime();
+            print(radix, radix.length);
+            System.out.println();
+            long radixExecutionTime = endTime - startTime;
+            startTime = System.nanoTime();
+            radixsort(shell, shell.length);
+            endTime = System.nanoTime();
+            print(shell, shell.length);
+            System.out.println();
+            long shellExecutionTime = endTime - startTime;
+            startTime = System.nanoTime();
+            heapsort(heap, heap.length);
+            endTime = System.nanoTime();
+            print(heap, heap.length);
+            long heapExecutionTime = endTime - startTime;
+            System.out.println();
+            startTime = System.nanoTime();
+            insertion_sort(insertion);
+            endTime = System.nanoTime();
+            print(insertion, insertion.length);
+            long insertionExecutionTime = endTime - startTime;
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("Collections sort execution time: " + defaultExecutionTime + " nanoseconds.");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("Radix sort execution time: " + radixExecutionTime + " nanoseconds.");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("Shell sort execution time: " + shellExecutionTime + " nanoseconds.");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("Heap sort execution time: " + heapExecutionTime + " nanoseconds.");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("Insertion sort execution time: " + insertionExecutionTime + " nanoseconds.");
+            System.out.println("------------------------------------------------------------------------");
+            System.out.println("**************Comparison Results**************");
+            if(isArraySame(radix,arr))
+                System.out.println("Radix sort and Collections sort outputs are the same");
+            if(isArraySame(shell,arr))
+                System.out.println("Shell sort and Collections sort outputs are the same");
+            if(isArraySame(heap,arr))
+                System.out.println("Heap sort and Collections sort outputs are the same");
+            if(isArraySame(insertion,arr))
+                System.out.println("Insertion sort and Collections sort outputs are the same");
+            
+            start.clear();
+            System.out.println("Please enter to continue: ");
+            start.scanner.nextLine();
         }
-        int radix[] = new int[size];
-        int shell[] = new int[size];
-        int heap[] = new int[size];
-        int insertion[] = new int[size];
-        copyArray(arr, radix);
-        copyArray(arr, shell);
-        copyArray(arr, heap);
-        copyArray(arr, insertion);
-        long startTime = System.nanoTime();
-        arr.sort(new IntegerAscendingComparator());
-        long endTime = System.nanoTime();
-        long defaultExecutionTime = endTime - startTime;
-        print(arr,arr.size());
-        startTime = System.nanoTime();
-        radixsort(radix, radix.length);
-        endTime = System.nanoTime();
-        print(radix, radix.length);
-        System.out.println();
-        long radixExecutionTime = endTime - startTime;
-        startTime = System.nanoTime();
-        radixsort(shell, shell.length);
-        endTime = System.nanoTime();
-        print(shell, shell.length);
-        System.out.println();
-        long shellExecutionTime = endTime - startTime;
-        startTime = System.nanoTime();
-        heapsort(heap, heap.length);
-        endTime = System.nanoTime();
-        print(heap, heap.length);
-        long heapExecutionTime = endTime - startTime;
-        System.out.println();
-        startTime = System.nanoTime();
-        insertion_sort(insertion);
-        endTime = System.nanoTime();
-        print(insertion, insertion.length);
-        long insertionExecutionTime = endTime - startTime;
-        System.out.println("Collections sort execution time: " + defaultExecutionTime + " nanoseconds.");
-        System.out.println("Radix sort execution time: " + radixExecutionTime + " nanoseconds.");
-        System.out.println("Shell sort execution time: " + shellExecutionTime + " nanoseconds.");
-        System.out.println("Heap sort execution time: " + heapExecutionTime + " nanoseconds.");
-        System.out.println("Insertion sort execution time: " + insertionExecutionTime + " nanoseconds.");
-        if(isArraySame(radix,arr))
-            System.out.println("Radix sort and Collections sort outputs are the same");
-        if(isArraySame(shell,arr))
-            System.out.println("Shell sort and Collections sort outputs are the same");
-        if(isArraySame(heap,arr))
-            System.out.println("Heap sort and Collections sort outputs are the same");
-        if(isArraySame(insertion,arr))
-            System.out.println("Insertion sort and Collections sort outputs are the same");
+        start.clear();
+        start.scanner.nextLine();
     }
 
     //General functions
@@ -288,3 +318,4 @@ public class algorithms{
     //-------------------------------------------------------------------------------------
     
 }
+
