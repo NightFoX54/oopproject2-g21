@@ -358,6 +358,7 @@ class manager extends employee{
         String checkEmpID = "SELECT * FROM employees WHERE employee_id = ?";
         String employeeName = "";
         String employeeRole = "";
+        String employeeUserName = "";
         //Checking the employee is exist?:
         do {
             System.out.print("Enter the employee_id of the employee you want to update: ");
@@ -373,6 +374,7 @@ class manager extends employee{
                 if (res.next()) {
                     employeeName = res.getString("name") + " " + res.getString("surname");
                     employeeRole = res.getString("role");
+                    employeeUserName = res.getString("username");
                     validID = true; 
                     System.out.println("Employee found: "+ employee_id+ " " + employeeName);
                 } else {
@@ -397,6 +399,7 @@ class manager extends employee{
         System.out.println("[C] Date of Birth");
         System.out.println("[D] Date of Start");
         System.out.println("[E] Role");
+        Systen.out.println("[F] Username");
         System.out.print("Select the employee field you want to update: ");
         choice = start.scanner.nextLine();
         choice = start.menuInput('E', choice, "Incorrect input! Please type again: ");
@@ -460,6 +463,22 @@ class manager extends employee{
                         
                 }
                 break;
+            case "F":
+                updateField = "username";
+                boolean control = true;
+                while (control){
+                    System.out.print("Enter the new username for " + employeeName +": ");
+                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.inputControl("username", newValue, "Incorrect input! Please type again: ");
+                    if(newValue.equals(username)){
+                        start.clear();
+                        System.out.println("The new username cannot be same! Please type again: ");
+                    }
+                    else{
+                        control = false;
+                    }
+                }
+            break;
         }
         start.clear();
 
