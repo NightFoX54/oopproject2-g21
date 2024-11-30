@@ -222,7 +222,7 @@ class manager extends employee{
         username = start.scanner.nextLine().toLowerCase();
 
 
-        final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateofStart, email FROM employees WHERE username COLLATE utf8mb4_bin = ?";
+        final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateofStart, email FROM employees WHERE username = ?";
 
         try(Connection connection = start.connect();
         PreparedStatement statementForUsername = connection.prepareStatement(displayByUsernameQuery);){
@@ -357,6 +357,10 @@ class manager extends employee{
         boolean validID = false;
         String checkEmpID = "SELECT * FROM employees WHERE employee_id = ?";
         String employeeName = "";
+        String empName = "";
+        String empSurname = "";
+        String empDateOfBirth = "";
+        String empDateOfStart = "";
         String employeeRole = "";
         String employeeUserName = "";
         //Checking the employee is exist?:
@@ -373,6 +377,10 @@ class manager extends employee{
                 
                 if (res.next()) {
                     employeeName = res.getString("name") + " " + res.getString("surname");
+                    empName = res.getString("name");
+                    empSurname = res.getString("surname");
+                    empDateOfBirth = res.getString("dateOfBirth");
+                    empDateOfStart = res.getString("dateOfStart");
                     employeeRole = res.getString("role");
                     employeeUserName = res.getString("username");
                     validID = true; 
@@ -392,6 +400,7 @@ class manager extends employee{
         //Field selection for updating employee non-profile fields:
         String updateField = null;
         String choice = null;
+        boolean flag = true;
 
         System.out.println("Fields to update:");
         System.out.println("[A] Name");
@@ -399,7 +408,7 @@ class manager extends employee{
         System.out.println("[C] Date of Birth");
         System.out.println("[D] Date of Start");
         System.out.println("[E] Role");
-        System.out.println("[F] Username");
+        Systen.out.println("[F] Username");
         System.out.print("Select the employee field you want to update: ");
         choice = start.scanner.nextLine();
         choice = start.menuInput('E', choice, "Incorrect input! Please type again: ");
@@ -412,6 +421,19 @@ class manager extends employee{
                 newValue = start.scanner.nextLine().toLowerCase();
                 newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
                 newValue = start.upperCaseName(newValue);
+                flag = true;
+                while (flag){
+                    System.out.print("Enter the new name for " + employeeName +": ");
+                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.inputControl("name", newValue, "Incorrect input! Please type again: ");
+                    if(newValue.equals(empName)){
+                        start.clear();
+                        System.out.println("The new name cannot be same! Please type again: ");
+                    }
+                    else{
+                        flag = false;
+                    }
+                }
                 break;
             case "B":
                 updateField = "surname";
@@ -419,22 +441,60 @@ class manager extends employee{
                 newValue = start.scanner.nextLine().toLowerCase();
                 newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
                 newValue = start.upperCaseName(newValue);
+                flag = true;
+                while (flag){
+                    System.out.print("Enter the new surname for " + employeeName +": ");
+                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.inputControl("surname", newValue, "Incorrect input! Please type again: ");
+                    if(newValue.equals(empSurname)){
+                        start.clear();
+                        System.out.println("The new surname cannot be same! Please type again: ");
+                    }
+                    else{
+                        flag = false;
+                    }
+                }
                 break;
             case "C":
                 updateField = "dateOfBirth";
                 System.out.print("Enter the new date of birth for " + employeeName +" in 'YYYY-MM-DD' format: ");
                 newValue = start.scanner.nextLine().toLowerCase();
                 newValue = start.inputControl("date", newValue, "Incorrect input! Please type again: ");
+                flag = true;
+                while (flag){
+                    System.out.print("Enter the new date of birth for " + employeeName +": ");
+                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.inputControl("dateOfBirth", newValue, "Incorrect input! Please type again: ");
+                    if(newValue.equals(empDateOfBirth)){
+                        start.clear();
+                        System.out.println("The new date of birth cannot be same! Please type again: ");
+                    }
+                    else{
+                        flag = false;
+                    }
+                }
                 break;
             case "D":
                 updateField = "dateOfStart";
                 System.out.print("Enter the new date of start for " + employeeName +" in 'YYYY-MM-DD' format: ");
                 newValue = start.scanner.nextLine().toLowerCase();
                 newValue = start.inputControl("date", newValue, "Incorrect input! Please type again: ");
+                flag = true;
+                while (flag){
+                    System.out.print("Enter the new date of start for " + employeeName +": ");
+                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.inputControl("dateOfStart", newValue, "Incorrect input! Please type again: ");
+                    if(newValue.equals(empDateOfStart)){
+                        start.clear();
+                        System.out.println("The new date of start cannot be same! Please type again: ");
+                    }
+                    else{
+                        flag = false;
+                    }
+                }
                 break;
             case "E":
                 updateField = "role";
-                boolean flag = true;
                 while(flag){
                     switch(employeeRole){
                         case "manager":
@@ -470,7 +530,7 @@ class manager extends employee{
                     System.out.print("Enter the new username for " + employeeName +": ");
                     newValue = start.scanner.nextLine().toLowerCase();
                     newValue = start.inputControl("username", newValue, "Incorrect input! Please type again: ");
-                    if(newValue.equals(employeeUserName)){
+                    if(newValue.equals(username)){
                         start.clear();
                         System.out.println("The new username cannot be same! Please type again: ");
                     }
