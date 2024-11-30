@@ -415,7 +415,7 @@ class manager extends employee{
         System.out.println("[F] Username");
         System.out.print("Select the employee field you want to update: ");
         choice = start.scanner.nextLine();
-        choice = start.menuInput('E', choice, "Incorrect input! Please type again: ");
+        choice = start.menuInput('F', choice, "Incorrect input! Please type again: ");
         String newValue = "";
         start.clear();
         switch (choice) {
