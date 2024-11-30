@@ -421,15 +421,12 @@ class manager extends employee{
         switch (choice) {
             case "A":
                 updateField = "name";
-                System.out.print("Enter the new name for " + employeeName +": ");
-                newValue = start.scanner.nextLine().toLowerCase();
-                newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
-                newValue = start.upperCaseName(newValue);
                 flag = true;
                 while (flag){
                     System.out.print("Enter the new name for " + employeeName +": ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("name", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.upperCaseName(newValue);
                     if(newValue.equals(empName)){
                         start.clear();
                         System.out.println("The new name cannot be same! Please type again: ");
@@ -441,15 +438,12 @@ class manager extends employee{
                 break;
             case "B":
                 updateField = "surname";
-                System.out.print("Enter the new surnamename for " + employeeName +": ");
-                newValue = start.scanner.nextLine().toLowerCase();
-                newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
-                newValue = start.upperCaseName(newValue);
                 flag = true;
                 while (flag){
                     System.out.print("Enter the new surname for " + employeeName +": ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("surname", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.upperCaseName(newValue);
                     if(newValue.equals(empSurname)){
                         start.clear();
                         System.out.println("The new surname cannot be same! Please type again: ");
@@ -462,13 +456,11 @@ class manager extends employee{
             case "C":
                 updateField = "dateOfBirth";
                 System.out.print("Enter the new date of birth for " + employeeName +" in 'YYYY-MM-DD' format: ");
-                newValue = start.scanner.nextLine().toLowerCase();
-                newValue = start.inputControl("date", newValue, "Incorrect input! Please type again: ");
                 flag = true;
                 while (flag){
                     System.out.print("Enter the new date of birth for " + employeeName +": ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("dateOfBirth", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("birth", newValue, "Incorrect input! Please type again: ");
                     if(newValue.equals(empDateOfBirth)){
                         start.clear();
                         System.out.println("The new date of birth cannot be same! Please type again: ");
@@ -481,13 +473,11 @@ class manager extends employee{
             case "D":
                 updateField = "dateOfStart";
                 System.out.print("Enter the new date of start for " + employeeName +" in 'YYYY-MM-DD' format: ");
-                newValue = start.scanner.nextLine().toLowerCase();
-                newValue = start.inputControl("date", newValue, "Incorrect input! Please type again: ");
                 flag = true;
                 while (flag){
                     System.out.print("Enter the new date of start for " + employeeName +": ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("dateOfStart", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("date", newValue, "Incorrect input! Please type again: ");
                     if(newValue.equals(empDateOfStart)){
                         start.clear();
                         System.out.println("The new date of start cannot be same! Please type again: ");
