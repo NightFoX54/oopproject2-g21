@@ -179,7 +179,7 @@ class manager extends employee{
          
         start.clear();
         System.out.print("Enter the role for sorting employees for organized display or type 'X' to go back to previous menu (Roles: manager, engineer, technician, intern): ");
-        role = start.scanner.nextLine().toLowerCase();
+        role = start.scanner.nextLine();
         role = start.inputControl("role", role, "The role that you entered is invalid! Please type again or type 'X' to go back to previous menu (Roles: manager, engineer, technician, intern): ", true);
         if(role.equals("X"))
             return;
@@ -230,6 +230,7 @@ class manager extends employee{
                 return;
             if(!checkUser(username)){
                 System.out.println("Username " + username + " doesn't exist in the database!");
+                valid = false;
             }
         }
 
@@ -437,7 +438,7 @@ class manager extends employee{
                 flag = true;
                 while (flag){
                     System.out.print("Enter the new name for " + employeeName +" or type 'X' to go back to main menu: ");
-                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.scanner.nextLine();
                     newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
                     if(newValue.equals("X"))
                         return;
@@ -456,7 +457,7 @@ class manager extends employee{
                 flag = true;
                 while (flag){
                     System.out.print("Enter the new surname for " + employeeName +" or type 'X' to go back to main menu: ");
-                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.scanner.nextLine();
                     newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
                     if(newValue.equals("X"))
                         return;
@@ -475,7 +476,7 @@ class manager extends employee{
                 flag = true;
                 while (flag){
                     System.out.print("Enter the new date of birth for " + employeeName +"in 'YYYY-MM-DD' format or type 'X' to go back to main menu: ");
-                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.scanner.nextLine();
                     newValue = start.inputControl("birth", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
                     if(newValue.equals("X"))
                         return;
@@ -493,7 +494,7 @@ class manager extends employee{
                 flag = true;
                 while (flag){
                     System.out.print("Enter the new date of start for " + employeeName +"in 'YYYY-MM-DD' format or type 'X' to go back to main menu: ");
-                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.scanner.nextLine();
                     newValue = start.inputControl("date", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
                     if(newValue.equals("X"))
                         return;
@@ -525,10 +526,11 @@ class manager extends employee{
                     }
 
                     System.out.print("Enter the new role for " + employeeName +" or type 'X' to go back to main menu: ");
-                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.scanner.nextLine();
                     newValue = start.inputControl("role", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
                     if(newValue.equals("X"))
                         return;
+                    newValue = newValue.toLowerCase();
                     if(employeeRole.equals(newValue)){
                         start.clear();
                         System.out.println("Employee's previous and new role can't be the same!");
@@ -543,7 +545,7 @@ class manager extends employee{
                 boolean control = true;
                 while (control){
                     System.out.print("Enter the new username for " + employeeName +" or type 'X' to go back to main menu: ");
-                    newValue = start.scanner.nextLine().toLowerCase();
+                    newValue = start.scanner.nextLine();
                     newValue = start.inputControl("username", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
                     if(newValue.equals("X"))
                         return;
