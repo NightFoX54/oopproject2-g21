@@ -18,12 +18,12 @@ class manager extends employee{
 
     public void managerMenu(){
     /**
-    *Prints out the manager menu for user to choose which operation will be operated.
-    *Includes: 
-    *- Displaying and updating manager's own profile.
-    *- Managing Employees (Hiring a new employee, firing an existing employee, updating specific fields of employees.)
-    *- Running algorithms for obtaining and comparing their runtime for analytical calculations.
-    *- Log out option.
+        *Prints out the manager menu for user to choose which operation will be operated.
+        *Includes: 
+        *- Displaying and updating manager's own profile.
+        *- Managing Employees (Hiring a new employee, firing an existing employee, updating specific fields of employees.)
+        *- Running algorithms for obtaining and comparing their runtime for analytical calculations.
+        *- Log out option.
     **/
         String operation = "";
         while(!operation.equals("J")){
@@ -87,7 +87,7 @@ class manager extends employee{
     }
 
     public void displayAllEmployees() {
-        /**
+    /**
         *Displays all employee records from the database in a table format.
 
         *Records include:
@@ -98,7 +98,7 @@ class manager extends employee{
         *- Contact information
         *- Date of birth
         *- Date of start
-        **/
+    **/
         final String query = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
         start.clear();
         try (Connection connection = start.connect();
@@ -304,12 +304,12 @@ class manager extends employee{
 
     public void hireEmployee() {
     /**
-    *Adds a new employee to the database with details provided by the manager.
-    *Checks for:
-    *- Username uniqueness.
-    *- Role, phone number, and email formatting.
+        *Adds a new employee to the database with details provided by the manager.
+        *Checks for:
+        *- Username uniqueness.
+        *- Role, phone number, and email formatting.
         
-    *Default password that system assesses : "password123".
+        *Default password that system assesses : "password123".
     **/
         start.clear();
         String username = "";
