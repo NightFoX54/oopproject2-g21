@@ -3,10 +3,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Handles authentication and login functionality for employees.
+ */
 public class authentication {
 
-    //There will be a connection variable to connect database
+    /**
+     * Default constructor for the authentication class.
+     */
+    public authentication() {
 
+    }
+
+    /**
+     * Provides authentication operations for user according to username and password
+     * Queries the database to verify credentials and returns the corresponding employee object 
+     * 
+     * @param username the username recorded in the database, must match the record in the database
+     * @param password the password recorded in the database, must match the record in the database
+     * @return it returns a relevant {@code employee} object after succesfull authentication
+     */
     public static employee login(String username, String password) {
         //First, we query the database with the provided username and password.
         String query = "SELECT * FROM employees WHERE username COLLATE utf8mb4_bin = ? AND password COLLATE utf8mb4_bin = ?";
@@ -41,6 +57,4 @@ public class authentication {
         }
         return null; // Return null if there is no matched user
     }
-
-
 }
