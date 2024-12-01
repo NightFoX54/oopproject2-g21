@@ -25,6 +25,7 @@ public class start{
         String close = "";
         while(user == null){
             if(loginAttemp != 0){
+                clear();
                 System.out.print("Incorrect credentials! Press enter to try again, type X to close the program: ");
                 close = scanner.nextLine();
             }
