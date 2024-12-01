@@ -1,8 +1,13 @@
 import java.util.*;
 
-
+/**
+ * A class for the algorithm function of the application
+ */
 public class algorithms{
 
+    /**
+     * A function that takes an input within the range of 1000 and 10000 from the user. And creates an array with user's input as it's size. In the end compares 5 different sorting algorithms.
+     */
     public static void algorithm()
     {  
         start.clear();
@@ -91,6 +96,12 @@ public class algorithms{
     //-------------------------------------------------------------------------------------
 
     // Print the array
+    /**
+     * A function to print an array
+     * 
+     * @param arr an array to print
+     * @param n size of the array
+     */
     static void print(int arr[], int n){
         for (int i = 0; i < n; i++)
             System.out.print(arr[i] + " ");
@@ -98,6 +109,12 @@ public class algorithms{
         System.out.println("\n");
     }
 
+    /**
+     * A function to print a list
+     * 
+     * @param arr a list to print
+     * @param n size of the list
+     */
     static void print(List<Integer> arr, int n){
         for (int i = 0; i < n; i++)
             System.out.print(arr.get(i) + " ");
@@ -105,18 +122,37 @@ public class algorithms{
         System.out.println("\n");
     }
 
+    /**
+     * A function to swap two indices of an array
+     * 
+     * @param arr an array to swap it's indices
+     * @param i first index to swap
+     * @param i second index to swap
+     */
     public static void swap(int[] arr, int i, int j){
         int temp = arr[i];
         arr[i] = arr[j];
         arr[j] = temp;
     }
 
+    /**
+     * A function to copy a list into an array
+     * 
+     * @param arr1 the list to copy
+     * @param arr2 the array to use as the duplicate
+     */
     public static void copyArray(List<Integer> arr1, int[] arr2){
         for(int i = 0; i < arr1.size(); i++){
             arr2[i] = arr1.get(i);
         }
     }
 
+    /**
+     * A function to check if an array and a list are equal
+     * 
+     * @param arr the array to compare
+     * @param list the list to compare
+     */
     public static boolean isArraySame(int[] arr, List<Integer> list){
         if(arr.length != list.size())
             return false;
@@ -128,6 +164,11 @@ public class algorithms{
         return same;
     }
 
+    /**
+     * A function to transform a string into an integer
+     * 
+     * @param input the string to transform
+     */
     public static int toInt(String input){
         boolean isNegative = false;
         int value = 0;
@@ -144,17 +185,18 @@ public class algorithms{
         return value;
     }
 
-    public static double digit(double value, int digit){
+    /**
+     * A function to calculate the value of a number at a specific digit position by multiplying it by 10 raised to the given digit.
+     * 
+     * @param value the base number to be shifted
+     * @param digit the number of places to shift (1 for tens, 2 for hundreds, etc.)
+     * @return the shifted value corresponding to the specified digit position
+     */
+    public static int digit(int value, int digit){
         if(digit > 0)
             for(int i = 0; i < digit; i++){
             value *= 10;
             }
-        if(digit < 0){
-            digit++;
-            for(; digit < 0; digit++){
-                value /= 10;
-            }
-        }
         return value;
     }
 
@@ -166,6 +208,13 @@ public class algorithms{
     //-------------------------------------------------------------------------------------
 
     // A function to get the number with maximum amount of digits
+    /**
+     * A function to get the number with maximum amount of digits from an array
+     * 
+     * @param arr an array to find the number with maximum amount of digits
+     * @param n size of the array
+     * @return the number with maximum amount of digits
+     */
     static int getMax(int arr[], int n)
     {
         int high = arr[0];
@@ -183,6 +232,13 @@ public class algorithms{
     }
 
     // A function to sort by digits
+    /**
+     * A function that sorts an array using count sort algorithm for each digit
+     * 
+     * @param arr an array to sort
+     * @param n the size of the array
+     * @param digit the digit to sort for
+     */
     static void countSort(int arr[], int n, int digit)
     {
         int output[] = new int[n];
@@ -210,6 +266,12 @@ public class algorithms{
             arr[i] = output[i];
     }
 
+    /**
+     * A function that sorts an array using radix sort algorithm
+     * 
+     * @param arr an array to sort
+     * @param n the size of the array
+     */
     static void radixsort(int arr[], int n)
     {
         // Find the maximum number to know number of digits
@@ -227,6 +289,11 @@ public class algorithms{
     //Functions for Shell Sort
     //-------------------------------------------------------------------------------------
 
+    /**
+     * A function that sorts an array using shell sort algorithm
+     * 
+     * @param arr an array to sort
+     */
     public static void shellsort(int arr[]) {
 
         int init_gap = arr.length / 2;
@@ -255,6 +322,13 @@ public class algorithms{
     //Functions for Heap Sort
     //-------------------------------------------------------------------------------------
 
+    /**
+     * A function that rearranges an array to follow heap properties
+     * 
+     * @param arr an array to sort
+     * @param i the index to check for heap properties
+     * @param n the size of the array
+     */
     public static void heapify(int[] arr, int i, int n){
         int leftChild = i*2 + 1;
         int rightChild = i*2 + 2;
@@ -271,6 +345,12 @@ public class algorithms{
             heapify(arr, largest, n);
         }
     }
+    /**
+     * A function that sorts an array using heap sort algorithm
+     * 
+     * @param arr an array to sort
+     * @param n the size of the array
+     */
     public static void heapsort(int[] arr, int n){
         for(int i = n / 2 - 1; i >= 0; i--){
             heapify(arr, i, n);
@@ -287,6 +367,11 @@ public class algorithms{
     //Functions for Insertion Sort
     //-------------------------------------------------------------------------------------
 
+    /**
+     * A function that sorts an array using insertion sort algorithm
+     * 
+     * @param arr an array to sort
+     */
     public static void insertion_sort(int[ ] arr){
 
         for(int i = 1; i < arr.length; i++){
