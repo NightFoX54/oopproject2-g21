@@ -266,7 +266,7 @@ class manager extends employee{
         }
     }
 
-    public boolean hireEmployee() {
+    public void hireEmployee() {
         start.clear();
         String username = "";
         String role = "";
@@ -330,13 +330,13 @@ class manager extends employee{
             dateof_birth = start.inputControl("date", dateof_birth, "Incorrect input. Please type the date of birth of the employee in YYYY-MM-DD format: ", false);
             start.clear();
             if(dateof_birth.equals("X"))
-                return false;
+                return;
             System.out.print("Please type the date of start of the employee in YYYY-MM-DD format: ");
             dateof_start = start.scanner.nextLine();
             dateof_start = start.inputControl("date", dateof_start, "Incorrect input. Please type the date of start of the employee in YYYY-MM-DD format: ", false);
             start.clear();
             if(dateof_start.equals("X"))
-                return false;
+                return;
             System.out.print("Please type the email of the employee: ");
             email = start.scanner.nextLine();
             email = start.inputControl("mail", email, "Incorrect input. Please type the email of the employee: ", false);
@@ -359,10 +359,8 @@ class manager extends employee{
                 start.scanner.nextLine();
             }
 
-            return status > 0;
         } catch (SQLException failed) {
             failed.printStackTrace();
-            return false;
         }
 
     }
