@@ -10,6 +10,12 @@ import java.util.Scanner;
 public class start{
     static Scanner scanner = new Scanner(System.in);
 
+    /**
+     * The main entry portion for the program. Handles user login, authentication,
+     * and menu redirection based on the user's role.
+     *
+     * @param args Command-line arguments.
+     */
     public static void main(String[] args) {
         clear();
         System.setProperty("file.encoding", "UTF-8");
@@ -54,11 +60,20 @@ public class start{
         }
     }
 
+    /**
+     * Clears the console screen.
+     */
     public static void clear(){
         System.out.print("\033[H\033[2J");
         System.out.flush();
     }
 
+    /**
+     * Converts a name to proper case format.
+     *
+     * @param name The name string which is inputted from the user.
+     * @return The properly formatted name string.
+     */
     public static String upperCaseName(String name){
         int spaceIndex = 0;
         int currentIndex = 0;
@@ -79,11 +94,25 @@ public class start{
         }
         return tempName;
     }
-    
+
+    /**
+     * Establishes a connection to the database.
+     *
+     * @return A Connection object to interact with the database.
+     * @throws SQLException.
+     */
     public static Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db?useUnicode=true&characterEncoding=utf8", "root", "179492");
     }
 
+    /**
+     * Checks menu input by ensuring it matchs with a specified range of characters.
+     *
+     * @param max     The maximum allowed character.
+     * @param input   The user's input.
+     * @param message The error message to display for invalid input.
+     * @return The validated input string.
+     */
     public static String menuInput(char max, String input, String message){
         boolean correctInput = false;
         while(!correctInput){
@@ -103,6 +132,15 @@ public class start{
         return input;
     }
 
+    /**
+     * Checks and trims user input based on the specified type.
+     *
+     * @param selection The type of input to control.
+     * @param input     The user's input.
+     * @param message   The error message to display for invalid input.
+     * @param prevMenu  If true, allows returning to the previous menu by typing 'X'.
+     * @return The controlled input string.
+     */
     public static String inputControl(String selection, String input, String message, boolean prevMenu){
         if(prevMenu && input.equals("X"))
             return input;
