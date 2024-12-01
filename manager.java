@@ -1,9 +1,6 @@
 import java.sql.*;
 
 class manager extends employee{
-    public manager(String employee_id, String username, String role, String name, String surname, String phone_no, String dateOfBirth, String dateOfStart, String email) {
-        super(employee_id, username, role, name, surname, phone_no, dateOfBirth, dateOfStart, email);
-    }
     /**
     *@param employee_id  The unique ID of the employee.
     *@param username     The individual and unique username of the employees.
@@ -15,8 +12,10 @@ class manager extends employee{
     *@param dateOfStart  The date that employee hired to company.
     *@param email        The email adress od the employee.
     **/
-
-    public void managerMenu(){
+    public manager(String employee_id, String username, String role, String name, String surname, String phone_no, String dateOfBirth, String dateOfStart, String email) {
+        super(employee_id, username, role, name, surname, phone_no, dateOfBirth, dateOfStart, email);
+    }
+    
     /**
         *Prints out the manager menu for user to choose which operation will be operated.
         *Includes: 
@@ -25,6 +24,8 @@ class manager extends employee{
         *- Running algorithms for obtaining and comparing their runtime for analytical calculations.
         *- Log out option.
     **/
+    public void managerMenu(){
+    
         String operation = "";
         while(!operation.equals("J")){
             start.clear();
@@ -85,8 +86,7 @@ class manager extends employee{
         }
 
     }
-
-    public void displayAllEmployees() {
+    
     /**
         *Displays all employee records from the database in a table format.
 
@@ -99,6 +99,8 @@ class manager extends employee{
         *- Date of birth
         *- Date of start
     **/
+    public void displayAllEmployees() {
+    
         final String query = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
         start.clear();
         try (Connection connection = start.connect();
@@ -131,14 +133,15 @@ class manager extends employee{
             e.printStackTrace();
         } 
     }
-
-    public void managerFire(){
+    
     /**
         *Removes an employee record from the database based on the specified employee ID.
         *The function checks:
         *- Managers cannot fire themselve.
         *- The employee which manager wants to fire must be in the database.
     **/
+    public void managerFire(){
+    
         start.clear();
         String selectQuery = "SELECT name, surname FROM employees WHERE employee_id = ?";  
         String deleteQuery = "DELETE FROM employees WHERE employee_id = ? "; 
@@ -206,10 +209,11 @@ class manager extends employee{
 
     }
 
-    public void displayByRole(){
     /**
-        *Displays employees by specified role that manager inputted.
+        *Displays employees by specified role depending on the managers input.
     **/
+    public void displayByRole(){
+    
         String role = "";
 
          
@@ -253,7 +257,10 @@ class manager extends employee{
             e.printStackTrace();
         }
     }   
-
+    
+    /**
+        *Displays employee by username which manager inputted.
+    **/
     public void displayByUsername(){
         String username = "";
         boolean valid = false;
@@ -302,7 +309,6 @@ class manager extends employee{
         }
     }
 
-    public void hireEmployee() {
     /**
         *Adds a new employee to the database with details provided by the manager.
         *Checks for:
@@ -311,6 +317,8 @@ class manager extends employee{
         
         *Default password that system assesses : "password123".
     **/
+    public void hireEmployee() {
+    
         start.clear();
         String username = "";
         String role = "";
@@ -409,6 +417,16 @@ class manager extends employee{
 
     }
 
+    /**
+     *Updates specific fields of an employee depending on the manager's input.
+     *Editable fields include:
+     *- Name
+     *- Surname
+     *- Role
+     *- Username
+     *- Date of birth
+     *- Date of start
+     **/
     public void employeeUpdate() {
         start.clear();
         String employee_id;
