@@ -15,7 +15,15 @@ class manager extends employee{
     @param dateOfStart  The date that employee hired to company.
     @param email        The email adress od the employee.
     */
+
     public void managerMenu(){
+         /* Prints out the manager menu for user to choose which operation will be operated.
+            Includes: 
+                - Displaying and updating manager's own profile.
+                - Managing Employees (Hiring a new employee, firing an existing employee, updating specific fields of employees.)
+                - Running algorithms for obtaining and comparing their runtime for analytical calculations.
+                - Log out option.
+        */
         String operation = "";
         while(!operation.equals("J")){
             start.clear();
@@ -78,6 +86,18 @@ class manager extends employee{
     }
 
     public void displayAllEmployees() {
+        /*
+        Displays all employee records from the database in a table format.
+
+        Records include:
+            - Employee ID
+            - Username
+            - Name and surname
+            - Role
+            - Contact information
+            - Date of birth
+            - Date of start
+        */
         final String query = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
         start.clear();
         try (Connection connection = start.connect();
@@ -112,6 +132,12 @@ class manager extends employee{
     }
 
     public void managerFire(){
+        /*
+        Removes an employee record from the database based on the specified employee ID.
+        ! Checks:
+            - Managers cannot fire themselve.
+            - The employee which manager wants to fire must be in the database.
+        */
         start.clear();
         String selectQuery = "SELECT name, surname FROM employees WHERE employee_id = ?";  
         String deleteQuery = "DELETE FROM employees WHERE employee_id = ? "; 
@@ -180,7 +206,9 @@ class manager extends employee{
     }
 
     public void displayByRole(){
-        //Getting Input from user may operated in main (?)
+        /*
+        Displays employees by specified role that manager inputted.
+        */
         String role = "";
 
          
@@ -274,6 +302,14 @@ class manager extends employee{
     }
 
     public void hireEmployee() {
+    /*
+        Adds a new employee to the database with details provided by the manager.
+        Checks for:
+            - Username uniqueness.
+            - Role, phone number, and email formatting.
+        
+        Default password that system assesses : "password123".
+    */
         start.clear();
         String username = "";
         String role = "";
