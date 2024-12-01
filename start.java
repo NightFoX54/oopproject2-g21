@@ -62,6 +62,7 @@ public class start{
         int currentIndex = 0;
         String tempName = "";
         String tempPartial = "";
+        name = name.toLowerCase();
         while(spaceIndex != -1){
             spaceIndex = name.indexOf(' ');
             if(spaceIndex == -1){
