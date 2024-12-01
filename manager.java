@@ -475,7 +475,7 @@ class manager extends employee{
                 updateField = "dateOfBirth";
                 flag = true;
                 while (flag){
-                    System.out.print("Enter the new date of birth for " + employeeName +"in 'YYYY-MM-DD' format or type 'X' to go back to main menu: ");
+                    System.out.print("Enter the new date of birth for " + employeeName +" in 'YYYY-MM-DD' format or type 'X' to go back to main menu: ");
                     newValue = start.scanner.nextLine();
                     newValue = start.inputControl("birth", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
                     if(newValue.equals("X"))
@@ -493,7 +493,7 @@ class manager extends employee{
                 updateField = "dateOfStart";
                 flag = true;
                 while (flag){
-                    System.out.print("Enter the new date of start for " + employeeName +"in 'YYYY-MM-DD' format or type 'X' to go back to main menu: ");
+                    System.out.print("Enter the new date of start for " + employeeName +" in 'YYYY-MM-DD' format or type 'X' to go back to main menu: ");
                     newValue = start.scanner.nextLine();
                     newValue = start.inputControl("date", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
                     if(newValue.equals("X"))
