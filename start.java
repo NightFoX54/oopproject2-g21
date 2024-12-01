@@ -100,8 +100,9 @@ public class start{
         return input;
     }
 
-    public static String inputControl(String selection, String input, String message){
-
+    public static String inputControl(String selection, String input, String message, boolean prevMenu){
+        if(prevMenu && input.equals("X"))
+            return input;
         switch(selection){
             case "mail":
                 boolean correctInput = false;
@@ -121,6 +122,8 @@ public class start{
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
+                    if(prevMenu && input.equals("X"))
+                        return input;
                 }
                 break;
             
@@ -141,6 +144,8 @@ public class start{
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
+                    if(prevMenu && input.equals("X"))
+                        return input;
                 }
                 break;
             
@@ -161,10 +166,13 @@ public class start{
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
+                    if(prevMenu && input.equals("X"))
+                        return input;
                 }
                 break;
             
             case "date":
+                boolean future = false;
                 correctInput = false;
                 LocalDate currentDate = LocalDate.now();
                 while(!correctInput){
@@ -197,18 +205,26 @@ public class start{
                             if(correctInput){
                                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                                 LocalDate inputDate = LocalDate.parse(input, formatter);
-                                if(inputDate.isAfter(currentDate))
+                                if(inputDate.isAfter(currentDate)){
+                                    future = true;
                                     correctInput = false;
+                                    System.out.print("You can't add a future date! Please type again or type 'X' to go back to previous menu: ");
+                                    input = scanner.nextLine();
+                                    if(input.equals("X"))
+                                        return input;
+                                }
                             }
                         }
                     }
                     else{
                         correctInput = false;
                     }
-                    if(!correctInput){
+                    if(!correctInput && !future){
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
+                    if(prevMenu && input.equals("X"))
+                        return input;
                 }
                 break;
             case "birth":
@@ -216,7 +232,9 @@ public class start{
                 currentDate = LocalDate.now();
                 while(!correctInput){
                     correctInput = true;
-                    inputControl("date", input, message);
+                    input = inputControl("date", input, message, true);
+                    if(input.equals("X"))
+                        return input;
                     int currYear = currentDate.getYear();
                     int currMonth = currentDate.getMonthValue(); // Numeric value of the month (1-12)
                     int currDay = currentDate.getDayOfMonth();
@@ -231,9 +249,13 @@ public class start{
                     
                     if(correctInput == false){
                         System.out.println("Employee can't be younger than 18 years old!");
-                        System.out.print("Please type again: ");
+                        System.out.print("Please type again, Type X to go back to previous menu: ");
                         input = scanner.nextLine();
+                        if(input.equals("X"))
+                            correctInput = true;
                     }
+                    if(prevMenu && input.equals("X"))
+                        return input;
                 }
                 break;
 
@@ -242,13 +264,20 @@ public class start{
                 while(!correctInput){
                     correctInput = true;
                     if(input.length() == 10){
-                        input = inputControl("number", input, message);
+                        input = inputControl("number", input, message, true);
+                        if(input.charAt(0) == '0')
+                            correctInput = false;
                     }
                     else{
                         correctInput = false;
+                       
+                    }
+                    if(!correctInput){
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
+                    if(prevMenu && input.equals("X"))
+                        return input;
                 }
                 break;
             case "role":
@@ -256,6 +285,8 @@ public class start{
                     System.out.print(message);
                     input = scanner.nextLine();
                 }
+                if(prevMenu && input.equals("X"))
+                    return input;
         }
         return input;
     }
