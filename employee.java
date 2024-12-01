@@ -93,20 +93,26 @@ abstract class employee {
             // Selection of which part to update
             switch (input) {
                 case "A":
-                    System.out.print("Enter your new password: ");
+                    System.out.print("Enter your new password or type 'X' to go to previous menu: ");
                     newValue = start.scanner.nextLine();
+                    if(newValue.equals("X"))
+                        return;
                     query = "UPDATE employees SET password = ? WHERE username = ?";
                     break;
                 case "B":
-                    System.out.print("Enter your new phone number without 0 at the beginning: ");
+                    System.out.print("Enter your new phone number without 0 at the beginning or type 'X' to go to previous menu: ");
                     newValue = start.scanner.nextLine();
-                    newValue = start.inputControl("phone", newValue, "Incorrect input! Please type your new phone number without 0 at the beginning");
+                    newValue = start.inputControl("phone", newValue, "Incorrect input! Please type your new phone number without 0 at the beginning or type 'X' to go to previous menu: ", true);
+                    if(newValue.equals("X"))
+                        return;
                     query = "UPDATE employees SET phone_no = ? WHERE username = ?";
                     break;
                 case "C":
-                    System.out.print("Enter your new email in 'XXX@khas.firm' format: ");
+                    System.out.print("Enter your new email in 'XXX@khas.firm' format or type 'X' to go to previous menu: ");
                     newValue = start.scanner.nextLine();
-                    newValue = start.inputControl("mail", newValue, "Incorrect input! Please type your email in 'XXX@khas.firm' format: ");
+                    newValue = start.inputControl("mail", newValue, "Incorrect input! Please type your email in 'XXX@khas.firm' format or type 'X' to go to previous menu: ", true);
+                    if(newValue.equals("X"))
+                        return;
                     query = "UPDATE employees SET email = ? WHERE username = ?";
                     break;
                 case "D":
