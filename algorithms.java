@@ -5,6 +5,7 @@ public class algorithms{
 
     public static void algorithm()
     {  
+        start.clear();
         String size_string = "";
         while(!size_string.equals("X")){
             Scanner scanner = new Scanner(System.in);
@@ -24,7 +25,7 @@ public class algorithms{
                 start.clear();
                 return;
             }
-    
+            size_string = "X";
             Random rand = new Random();
             List<Integer> arr = new ArrayList<Integer>();
             for(int i = 0; i < size; i++){
@@ -87,12 +88,9 @@ public class algorithms{
             if(isArraySame(insertion,arr))
                 System.out.println("Insertion sort and Collections sort outputs are the same");
             
-            start.clear();
-            System.out.println("Please enter to continue: ");
+            System.out.print("Press enter to continue: ");
             start.scanner.nextLine();
         }
-        start.clear();
-        start.scanner.nextLine();
     }
 
     //General functions
@@ -318,4 +316,3 @@ public class algorithms{
     //-------------------------------------------------------------------------------------
     
 }
-
