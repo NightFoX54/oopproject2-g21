@@ -4,26 +4,27 @@ class manager extends employee{
     public manager(String employee_id, String username, String role, String name, String surname, String phone_no, String dateOfBirth, String dateOfStart, String email) {
         super(employee_id, username, role, name, surname, phone_no, dateOfBirth, dateOfStart, email);
     }
-    /*
-    @param employee_id  The unique ID of the employee.
-    @param username     The individual and unique username of the employees.
-    @param role         The role of the employee.
-    @param name         The first name of the employee.
-    @param surname      The surname of the employee.
-    @param phone_no     The phone number of the employee.
-    @param dateOfBirth  The date of birth of the employee.
-    @param dateOfStart  The date that employee hired to company.
-    @param email        The email adress od the employee.
-    */
+    /**
+    *@param employee_id  The unique ID of the employee.
+    *@param username     The individual and unique username of the employees.
+    *@param role         The role of the employee.
+    *@param name         The first name of the employee.
+    *@param surname      The surname of the employee.
+    *@param phone_no     The phone number of the employee.
+    *@param dateOfBirth  The date of birth of the employee.
+    *@param dateOfStart  The date that employee hired to company.
+    *@param email        The email adress od the employee.
+    **/
 
     public void managerMenu(){
-         /* Prints out the manager menu for user to choose which operation will be operated.
-            Includes: 
-                - Displaying and updating manager's own profile.
-                - Managing Employees (Hiring a new employee, firing an existing employee, updating specific fields of employees.)
-                - Running algorithms for obtaining and comparing their runtime for analytical calculations.
-                - Log out option.
-        */
+    /**
+    *Prints out the manager menu for user to choose which operation will be operated.
+    *Includes: 
+    *- Displaying and updating manager's own profile.
+    *- Managing Employees (Hiring a new employee, firing an existing employee, updating specific fields of employees.)
+    *- Running algorithms for obtaining and comparing their runtime for analytical calculations.
+    *- Log out option.
+    **/
         String operation = "";
         while(!operation.equals("J")){
             start.clear();
@@ -86,18 +87,18 @@ class manager extends employee{
     }
 
     public void displayAllEmployees() {
-        /*
-        Displays all employee records from the database in a table format.
+        /**
+        *Displays all employee records from the database in a table format.
 
-        Records include:
-            - Employee ID
-            - Username
-            - Name and surname
-            - Role
-            - Contact information
-            - Date of birth
-            - Date of start
-        */
+        *Records include:
+        *- Employee ID
+        *- Username
+        *- Name and surname
+        *- Role
+        *- Contact information
+        *- Date of birth
+        *- Date of start
+        **/
         final String query = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
         start.clear();
         try (Connection connection = start.connect();
@@ -132,12 +133,12 @@ class manager extends employee{
     }
 
     public void managerFire(){
-        /*
-        Removes an employee record from the database based on the specified employee ID.
-        ! Checks:
-            - Managers cannot fire themselve.
-            - The employee which manager wants to fire must be in the database.
-        */
+    /**
+        *Removes an employee record from the database based on the specified employee ID.
+        *The function checks:
+        *- Managers cannot fire themselve.
+        *- The employee which manager wants to fire must be in the database.
+    **/
         start.clear();
         String selectQuery = "SELECT name, surname FROM employees WHERE employee_id = ?";  
         String deleteQuery = "DELETE FROM employees WHERE employee_id = ? "; 
@@ -206,9 +207,9 @@ class manager extends employee{
     }
 
     public void displayByRole(){
-        /*
-        Displays employees by specified role that manager inputted.
-        */
+    /**
+        *Displays employees by specified role that manager inputted.
+    **/
         String role = "";
 
          
@@ -302,14 +303,14 @@ class manager extends employee{
     }
 
     public void hireEmployee() {
-    /*
-        Adds a new employee to the database with details provided by the manager.
-        Checks for:
-            - Username uniqueness.
-            - Role, phone number, and email formatting.
+    /**
+    *Adds a new employee to the database with details provided by the manager.
+    *Checks for:
+    *- Username uniqueness.
+    *- Role, phone number, and email formatting.
         
-        Default password that system assesses : "password123".
-    */
+    *Default password that system assesses : "password123".
+    **/
         start.clear();
         String username = "";
         String role = "";
