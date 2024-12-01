@@ -38,6 +38,7 @@ public class start{
             loginAttemp++;
         }
         if(!close.equals("X")){
+            start.clear();
             user.defaultPasswordChange();
             manager mUser;
             regularEmployee eUser;
