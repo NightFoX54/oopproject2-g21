@@ -110,10 +110,11 @@ class manager extends employee{
         String deleteQuery = "DELETE FROM employees WHERE employee_id = ? "; 
         String name = null, surname = null;
 
-        System.out.print("Please enter the employee_id of the employee you want to fire:");
+        System.out.print("Please enter the employee_id of the employee you want to fire or type 'X' to go back to previous menu: ");
         String employee_id = start.scanner.nextLine();
-        employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again: ");
-
+        employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again or type 'X' to go back to previous menu: ", true);
+        if(employee_id.equals("X"))
+            return;
         if(this.employee_id.equals(employee_id)){
             System.out.println("The manager cannot fire himself/herself !");
             System.out.print("Press enter to continue: ");
@@ -177,9 +178,11 @@ class manager extends employee{
 
          
         start.clear();
-        System.out.print("Enter the role for sorting employees for organized display (Roles: manager, engineer, technician, intern): ");
+        System.out.print("Enter the role for sorting employees for organized display or type 'X' to go back to previous menu (Roles: manager, engineer, technician, intern): ");
         role = start.scanner.nextLine().toLowerCase();
-        role = start.inputControl("role", role, "The role that you entered is invalid! Please type again (Roles: manager, engineer, technician, intern): ");
+        role = start.inputControl("role", role, "The role that you entered is invalid! Please type again or type 'X' to go back to previous menu (Roles: manager, engineer, technician, intern): ", true);
+        if(role.equals("X"))
+            return;
             
 
         final String displayByRoleQuery = "SELECT employee_id, username, name, surname, phone_no, dateOfBirth, dateOfStart, email FROM employees WHERE role = ?";
@@ -219,12 +222,16 @@ class manager extends employee{
         String username = "";
         boolean valid = false;
         start.clear();
-        /*kullanıcının girdiği username database'de var mı yok mu onun kontrolü yapılacak, kısacası username için input control ve database controlü.
-        kullanıcıdan input alma işlerini mainde mi yapıcaz fonksiyonlarda herkes kendince yapsın mı?
-        */
-        System.out.print("Enter the username to see the employee: ");
-        username = start.scanner.nextLine().toLowerCase();
-
+        while(valid == false){
+            valid = true;
+            System.out.print("Enter the username to see the employee or type 'X' to go back to previous menu: ");
+            username = start.scanner.nextLine();
+            if(username.equals("X"))
+                return;
+            if(!checkUser(username)){
+                System.out.println("Username " + username + " doesn't exist in the database!");
+            }
+        }
 
         final String displayByUsernameQuery = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateofStart, email FROM employees WHERE username COLLATE utf8mb4_bin = ?";
 
@@ -301,33 +308,37 @@ class manager extends employee{
             System.out.println("Available roles are: manager, engineer, technician, intern");
             System.out.print("Please type the role of the employee: ");
             role = start.scanner.nextLine().toLowerCase();
-            role = start.inputControl("role", role, "Incorrect input! Please type again: ");
+            role = start.inputControl("role", role, "Incorrect input! Please type again: ", false);
             start.clear();
             System.out.print("Please type the name of the employee: ");
             name = start.scanner.nextLine().toLowerCase();
-            name = start.inputControl("letter", name, "Incorrect input. Please type the name of the employee: ");
+            name = start.inputControl("letter", name, "Incorrect input. Please type the name of the employee: ", false);
             name = start.upperCaseName(name);
             start.clear();
             System.out.print("Please type the surname of the employee: ");
             surname = start.scanner.nextLine().toLowerCase();
-            surname = start.inputControl("letter", surname, "Incorrect input. Please type the name of the employee: ");
+            surname = start.inputControl("letter", surname, "Incorrect input. Please type the name of the employee: ", false);
             surname = start.upperCaseName(surname);
             start.clear();
             System.out.print("Please type the phone number of the employee: ");
             phone_no = start.scanner.nextLine();
-            phone_no = start.inputControl("phone", phone_no, "Incorrect input. Please type the phone number of the employee: ");
+            phone_no = start.inputControl("phone", phone_no, "Incorrect input. Please type the phone number of the employee: ", false);
             start.clear();
             System.out.print("Please type the date of birth of the employee in YYYY-MM-DD format: ");
             dateof_birth = start.scanner.nextLine();
-            dateof_birth = start.inputControl("date", dateof_birth, "Incorrect input. Please type the date of birth of the employee in YYYY-MM-DD format: ");
+            dateof_birth = start.inputControl("date", dateof_birth, "Incorrect input. Please type the date of birth of the employee in YYYY-MM-DD format: ", false);
             start.clear();
+            if(dateof_birth.equals("X"))
+                return false;
             System.out.print("Please type the date of start of the employee in YYYY-MM-DD format: ");
             dateof_start = start.scanner.nextLine();
-            dateof_start = start.inputControl("date", dateof_start, "Incorrect input. Please type the date of start of the employee in YYYY-MM-DD format: ");
+            dateof_start = start.inputControl("date", dateof_start, "Incorrect input. Please type the date of start of the employee in YYYY-MM-DD format: ", false);
             start.clear();
+            if(dateof_start.equals("X"))
+                return false;
             System.out.print("Please type the email of the employee: ");
             email = start.scanner.nextLine();
-            email = start.inputControl("mail", email, "Incorrect input. Please type the email of the employee: ");
+            email = start.inputControl("mail", email, "Incorrect input. Please type the email of the employee: ", false);
             statement.setString(1, maxId);
             statement.setString(2, username);
             statement.setString(3, defaultPassword);
@@ -369,9 +380,11 @@ class manager extends employee{
         String employeeUserName = "";
         //Checking the employee is exist?:
         do {
-            System.out.print("Enter the employee_id of the employee you want to update: ");
+            System.out.print("Enter the employee_id of the employee you want to update or type 'X' to go back to previous menu: ");
             employee_id = start.scanner.nextLine();
-            employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again: ");
+            employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again or type 'X' to go back to previous menu: ", true);
+            if(employee_id.equals("X"))
+            return;
             start.clear();
             try (Connection connection = start.connect();
                 PreparedStatement checkStatement = connection.prepareStatement(checkEmpID)) {
@@ -423,9 +436,11 @@ class manager extends employee{
                 updateField = "name";
                 flag = true;
                 while (flag){
-                    System.out.print("Enter the new name for " + employeeName +": ");
+                    System.out.print("Enter the new name for " + employeeName +" or type 'X' to go back to main menu: ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
+                    if(newValue.equals("X"))
+                        return;
                     newValue = start.upperCaseName(newValue);
                     if(newValue.equals(empName)){
                         start.clear();
@@ -440,9 +455,11 @@ class manager extends employee{
                 updateField = "surname";
                 flag = true;
                 while (flag){
-                    System.out.print("Enter the new surname for " + employeeName +": ");
+                    System.out.print("Enter the new surname for " + employeeName +" or type 'X' to go back to main menu: ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("letter", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
+                    if(newValue.equals("X"))
+                        return;
                     newValue = start.upperCaseName(newValue);
                     if(newValue.equals(empSurname)){
                         start.clear();
@@ -455,12 +472,13 @@ class manager extends employee{
                 break;
             case "C":
                 updateField = "dateOfBirth";
-                System.out.print("Enter the new date of birth for " + employeeName +" in 'YYYY-MM-DD' format: ");
                 flag = true;
                 while (flag){
-                    System.out.print("Enter the new date of birth for " + employeeName +": ");
+                    System.out.print("Enter the new date of birth for " + employeeName +"in 'YYYY-MM-DD' format or type 'X' to go back to main menu: ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("birth", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("birth", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
+                    if(newValue.equals("X"))
+                        return;
                     if(newValue.equals(empDateOfBirth)){
                         start.clear();
                         System.out.println("The new date of birth cannot be same! Please type again: ");
@@ -472,12 +490,13 @@ class manager extends employee{
                 break;
             case "D":
                 updateField = "dateOfStart";
-                System.out.print("Enter the new date of start for " + employeeName +" in 'YYYY-MM-DD' format: ");
                 flag = true;
                 while (flag){
-                    System.out.print("Enter the new date of start for " + employeeName +": ");
+                    System.out.print("Enter the new date of start for " + employeeName +"in 'YYYY-MM-DD' format or type 'X' to go back to main menu: ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("date", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("date", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
+                    if(newValue.equals("X"))
+                        return;
                     if(newValue.equals(empDateOfStart)){
                         start.clear();
                         System.out.println("The new date of start cannot be same! Please type again: ");
@@ -505,9 +524,11 @@ class manager extends employee{
                             break;
                     }
 
-                    System.out.print("Enter the new role for " + employeeName +": ");
+                    System.out.print("Enter the new role for " + employeeName +" or type 'X' to go back to main menu: ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("role", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("role", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
+                    if(newValue.equals("X"))
+                        return;
                     if(employeeRole.equals(newValue)){
                         start.clear();
                         System.out.println("Employee's previous and new role can't be the same!");
@@ -521,9 +542,11 @@ class manager extends employee{
                 updateField = "username";
                 boolean control = true;
                 while (control){
-                    System.out.print("Enter the new username for " + employeeName +": ");
+                    System.out.print("Enter the new username for " + employeeName +" or type 'X' to go back to main menu: ");
                     newValue = start.scanner.nextLine().toLowerCase();
-                    newValue = start.inputControl("username", newValue, "Incorrect input! Please type again: ");
+                    newValue = start.inputControl("username", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
+                    if(newValue.equals("X"))
+                        return;
                     if(newValue.equals(employeeUserName)){
                         start.clear();
                         System.out.println("The new username cannot be same! Please type again: ");
