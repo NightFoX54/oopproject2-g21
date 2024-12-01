@@ -4,9 +4,16 @@ class manager extends employee{
     public manager(String employee_id, String username, String role, String name, String surname, String phone_no, String dateOfBirth, String dateOfStart, String email) {
         super(employee_id, username, role, name, surname, phone_no, dateOfBirth, dateOfStart, email);
     }
-
-    /* public static Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db", "root", "qwerty");
+    /*
+    @param employee_id  The unique ID of the employee.
+    @param username     The individual and unique username of the employees.
+    @param role         The role of the employee.
+    @param name         The first name of the employee.
+    @param surname      The surname of the employee.
+    @param phone_no     The phone number of the employee.
+    @param dateOfBirth  The date of birth of the employee.
+    @param dateOfStart  The date that employee hired to company.
+    @param email        The email adress od the employee.
     */
     public void managerMenu(){
         String operation = "";
