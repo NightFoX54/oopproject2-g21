@@ -34,7 +34,7 @@ abstract class employee {
         this.email = email;
     }
     /**
-     * Allows user to change the password after first login
+     * Allows user to change the password after first login.
      * 
      * Checks if the user's password is default password ("password123")
      * if the user's password is default, user will change their password.
