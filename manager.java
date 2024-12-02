@@ -3,6 +3,7 @@ import java.sql.*;
 /**
  * The Manager class extends the Employee class and provides functionality for
  * managing employees in a company, such as hiring, firing, and updating profiles.
+ * It extends the {@code employee} class inherits certain properties
  */
 class manager extends employee{
     /**
