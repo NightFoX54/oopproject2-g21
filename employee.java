@@ -33,7 +33,13 @@ abstract class employee {
         this.dateOfStart = dateOfStart;
         this.email = email;
     }
-
+    /**
+     * 
+     * Allows user to change the password after first login
+     * 
+     * Checks if the user's password is default password ("password123")
+     * if the user's password is default, user will change their password.
+     */
     public void defaultPasswordChange(){
         String query = "SELECT * FROM employees WHERE username = ? AND password = ?";
         try (Connection connection = start.connect(); PreparedStatement statement = connection.prepareStatement(query)) {
@@ -64,7 +70,22 @@ abstract class employee {
                 e.printStackTrace();
             }
     }
-
+    
+    /**
+     * 
+     * Prints the profile information of the user in a table format.
+     * 
+     * - Informations include:
+     * - Employee ID
+     * - Username
+     * - Role
+     * - Name
+     * - Surname
+     * - Phone Number
+     * - Date of Birth
+     * - Date of Start
+     * - Email
+     */
     public void displayProfile() {
         start.clear();
         // Printing the profile of the employee
