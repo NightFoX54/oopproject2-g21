@@ -1,5 +1,9 @@
 import java.sql.*;
 
+/**
+ * The Manager class extends the Employee class and provides functionality for
+ * managing employees in a company, such as hiring, firing, and updating profiles.
+ */
 class manager extends employee{
     /**
     *@param employee_id  The unique ID of the employee.
