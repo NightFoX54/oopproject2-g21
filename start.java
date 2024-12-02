@@ -6,7 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 
-
+/**
+ * The start class handles user authentication,
+ * and provides utility methods for input validation, screen clearing, and database connection.
+ */
 public class start{
     static Scanner scanner = new Scanner(System.in);
 
