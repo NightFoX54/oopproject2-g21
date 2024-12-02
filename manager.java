@@ -355,10 +355,11 @@ class manager extends employee{
             while(usernameExists){
                 start.clear();
                 if(usernameTrial == 0)
-                    System.out.print("Please type the username of the employee: ");
+                    System.out.print("Please type the username of the employee (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ");
                 else
-                    System.out.print("Username is already taken by another employee! Please choose another username: ");
+                    System.out.print("Username is already taken by another employee! Please choose another username (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ");
                 username = start.scanner.nextLine();
+                username = start.inputControl("username", username, "Incorrect input! Please type again (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ", false);
                 usernameExists = this.checkUser(username);
                 usernameTrial++;
             }
@@ -609,9 +610,9 @@ class manager extends employee{
                 updateField = "username";
                 boolean control = true;
                 while (control){
-                    System.out.print("Enter the new username for " + employeeName +" or type 'X' to go back to main menu: ");
+                    System.out.print("Enter the new username for " + employeeName +" or type 'X' to go back to main menu (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ");
                     newValue = start.scanner.nextLine();
-                    newValue = start.inputControl("username", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu: ", true);
+                    newValue = start.inputControl("username", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ", true);
                     if(newValue.equals("X"))
                         return;
                     if(newValue.equals(employeeUserName)){
