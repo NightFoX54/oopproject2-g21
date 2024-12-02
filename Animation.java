@@ -1,6 +1,12 @@
 import java.util.concurrent.TimeUnit; // Import for TimeUnit (or use Thread.sleep instead)
 
+/**
+ * A class for the opening animation of the application
+ */
 public class Animation {
+    /**
+     * A function for the opening animation of the application
+     */
     public static void animation() throws InterruptedException {
         // ANSI escape codes for colors
         final String RESET = "\u001B[0m";
