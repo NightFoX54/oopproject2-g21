@@ -10,8 +10,17 @@ abstract class employee {
     protected String dateOfBirth;
     protected String dateOfStart;
     protected String email;
-
-    // Constructor
+  /**
+ * @param employee_id The identifier for the employee.
+ * @param username The unique username of the employee.
+ * @param role The role of the employe (manager, engineer, technician, intern)
+ * @param name The name of the employee.
+ * @param surname The surname of the employee.
+ * @param phoneNo The phone number of the employee.
+ * @param dateOfBirth The birth date of the employee (YYYY-MM-DD).
+ * @param dateOfStart The start date of the employee (YYY-MM-DD).
+ * @param email The email adress of the employee.
+ */
     public employee(String employee_id, String username, String role, String name, String surname,
                     String phoneNo, String dateOfBirth, String dateOfStart, String email) {
         this.employee_id = employee_id;                
