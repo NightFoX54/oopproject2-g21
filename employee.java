@@ -112,7 +112,7 @@ abstract class employee {
      * <li>Go back</li>
      * 
      * If the user's input is valid, the selected field will be updated.
-     * If the user's input is unvalid, system will ask another input.
+     * If the user's input is invalid, system will ask another input.
      * 
      * The user can choose to change another field to update or exit the menu.
      * 
