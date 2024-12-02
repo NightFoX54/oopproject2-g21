@@ -1,5 +1,8 @@
 import java.sql.*;
-
+/**
+ * Represents an employee and its common features.
+ * Abstract class defines common features of an employee.
+ */
 abstract class employee {
     protected String employee_id;
     protected String username;
@@ -208,7 +211,7 @@ abstract class employee {
             }
         }
 
-            /**
+    /**
      * Check the user's username if it exist in the database.
      * 
      * @param username The unique username to check in database.
