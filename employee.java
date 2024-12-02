@@ -207,6 +207,14 @@ abstract class employee {
 
             }
         }
+
+            /**
+     * Check the user's username if it exist in the database.
+     * 
+     * @param username The unique username to check in database.
+     * @return {@code true} if the username exits on database, {@code false} if the username does not exist.
+     * @throws SQLException if a database error occurs during the query execution. 
+     */
     }
     public boolean checkUser(String username){
         final String checkUsernameQuery = "SELECT COUNT(*) FROM employees WHERE username = ?";
