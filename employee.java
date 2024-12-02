@@ -34,7 +34,6 @@ abstract class employee {
         this.email = email;
     }
     /**
-     * 
      * Allows user to change the password after first login
      * 
      * Checks if the user's password is default password ("password123")
@@ -72,19 +71,20 @@ abstract class employee {
     }
     
     /**
-     * 
      * Prints the profile information of the user in a table format.
      * 
-     * - Informations include:
-     * - Employee ID
-     * - Username
-     * - Role
-     * - Name
-     * - Surname
-     * - Phone Number
-     * - Date of Birth
-     * - Date of Start
-     * - Email
+     * Informations include:
+     * <ul>
+     * <li>Employee ID</li>
+     *<li>Username</li>
+     * <li>Role</li>
+     * <li>Name</li>
+     * <li>Surname</li>
+     * <li>Phone Number</li>
+     * <li>Date of Birth</li>
+     * <li>Date of Start</li>
+     * <li>Email</li>
+     * <ul>
      */
     public void displayProfile() {
         start.clear();
@@ -101,7 +101,23 @@ abstract class employee {
 
     }
     
-    // Updating the user's profile
+    /**
+     * Allows user to update their profile informations.
+     * 
+     * The user can choose one field to update or go back on menu:
+     * <ul>
+     * <li>Password</li>
+     * <li>Phone Number</li>
+     * <li>Email</li>
+     * <li>Go back</li>
+     * 
+     * If the user's input is valid, the selected field will be updated.
+     * If the user's input is unvalid, system will ask another input.
+     * 
+     * The user can choose to change another field to update or exit the menu.
+     * 
+     * @throws SQLException If a database error ocurs during the update.
+     */
     public void updateProfile() {
         boolean updateContinue = true;
         while (updateContinue) {
