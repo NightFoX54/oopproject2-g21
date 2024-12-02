@@ -151,6 +151,8 @@ public class start{
             case "mail":
                 boolean correctInput = false;
                 while(!correctInput){
+                    if(prevMenu && input.equals("X"))
+                        return input;
                     correctInput = true;
                     if(input.length() > 10){
                         if(!input.substring(input.length() - 10).equals("@khas.firm")){
@@ -166,14 +168,14 @@ public class start{
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
-                    if(prevMenu && input.equals("X"))
-                        return input;
                 }
                 break;
             
             case "number":
                 correctInput = false;
                 while(!correctInput){
+                    if(prevMenu && input.equals("X"))
+                        return input;
                     correctInput = true;
                     if(input.length() != 0){
                         for(int i = 0; i < input.length(); i++){
@@ -188,14 +190,14 @@ public class start{
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
-                    if(prevMenu && input.equals("X"))
-                        return input;
                 }
                 break;
             
             case "letter":
                 correctInput = false;
                 while(!correctInput){
+                    if(prevMenu && input.equals("X"))
+                        return input;
                     correctInput = true;
                     if(input.length() != 0){
                         for(int i = 0; i < input.length(); i++){
@@ -210,8 +212,6 @@ public class start{
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
-                    if(prevMenu && input.equals("X"))
-                        return input;
                 }
                 break;
             
@@ -220,6 +220,8 @@ public class start{
                 correctInput = false;
                 LocalDate currentDate = LocalDate.now();
                 while(!correctInput){
+                    if(prevMenu && input.equals("X"))
+                        return input;
                     correctInput = true;
                     if(input.length() == 10){
                         for(int i = 0; i < input.length(); i++){
@@ -267,14 +269,14 @@ public class start{
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
-                    if(prevMenu && input.equals("X"))
-                        return input;
                 }
                 break;
             case "birth":
                 correctInput = false;
                 currentDate = LocalDate.now();
                 while(!correctInput){
+                    if(prevMenu && input.equals("X"))
+                        return input;
                     correctInput = true;
                     input = inputControl("date", input, message, true);
                     if(input.equals("X"))
@@ -290,22 +292,20 @@ public class start{
                         is18 = false;
                     if(currYear - year < 18 || (currYear - year == 18 && is18 == false))
                         correctInput = false;
-                    
+
                     if(correctInput == false){
                         System.out.println("Employee can't be younger than 18 years old!");
                         System.out.print("Please type again, Type X to go back to previous menu: ");
                         input = scanner.nextLine();
-                        if(input.equals("X"))
-                            correctInput = true;
                     }
-                    if(prevMenu && input.equals("X"))
-                        return input;
                 }
                 break;
 
             case "phone":
                 correctInput = false;
                 while(!correctInput){
+                    if(prevMenu && input.equals("X"))
+                        return input;
                     correctInput = true;
                     if(input.length() == 10){
                         input = inputControl("number", input, message, true);
@@ -320,17 +320,38 @@ public class start{
                         System.out.print(message);
                         input = scanner.nextLine();
                     }
-                    if(prevMenu && input.equals("X"))
-                        return input;
                 }
                 break;
             case "role":
                 while(!input.equals("manager") && !input.equals("engineer") && !input.equals("technician") && !input.equals("intern")){
+                    if(prevMenu && input.equals("X"))
+                        return input;
                     System.out.print(message);
                     input = scanner.nextLine();
                 }
-                if(prevMenu && input.equals("X"))
-                    return input;
+                break;
+            case "username":
+                correctInput = false;
+                while(!correctInput){
+                    if(prevMenu && input.equals("X"))
+                        return input;
+                    correctInput = true;
+                    if(input.length() > 1){
+                        for(int i = 0; i < input.length(); i++){
+                            char current = input.charAt(i);
+                            if((current < 'a' || current > 'z') && (current < 'A' || current > 'Z') && (current < '0' || current > '9') && "çğöşüÇĞÖŞÜİı".indexOf(current) == -1){
+                                correctInput = false;
+                            }
+                        }
+                    }
+                    else
+                        correctInput = false;
+                    if(!correctInput){
+                        System.out.print(message);
+                        input = scanner.nextLine();
+                    }
+                }
+                break;
         }
         return input;
     }
