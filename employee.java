@@ -89,7 +89,7 @@ abstract class employee {
      * <li>Email</li>
      * <ul>
      */
-    public void displayProfile() {
+    protected void displayProfile() {
         start.clear();
         // Printing the profile of the employee
         System.out.println("===================================================================================================================================================================================");
@@ -121,7 +121,7 @@ abstract class employee {
      * 
      * @throws SQLException If a database error ocurs during the update.
      */
-    public void updateProfile() {
+    protected void updateProfile() {
         boolean updateContinue = true;
         while (updateContinue) {
             start.clear();
@@ -236,3 +236,11 @@ abstract class employee {
         return false;
     }
 }   
+
+
+
+
+
+
+
+
