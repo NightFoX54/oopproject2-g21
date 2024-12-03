@@ -104,7 +104,7 @@ class manager extends employee{
         *- Date of birth
         *- Date of start
     **/
-    public void displayAllEmployees() {
+    private void displayAllEmployees() {
     
         final String query = "SELECT employee_id, username, name, surname, role, phone_no, dateOfBirth, dateOfStart, email FROM employees"; //SQL query for obtaining data from database.
         start.clear();
@@ -145,7 +145,7 @@ class manager extends employee{
         *- Managers cannot fire themselve.
         *- The employee which manager wants to fire must be in the database.
     **/
-    public void managerFire(){
+    private void managerFire(){
     
         start.clear();
         String selectQuery = "SELECT name, surname FROM employees WHERE employee_id = ?";  
@@ -217,7 +217,7 @@ class manager extends employee{
     /**
         *Displays employees by specified role depending on the managers input.
     **/
-    public void displayByRole(){
+    private void displayByRole(){
     
         String role = "";
 
@@ -266,7 +266,7 @@ class manager extends employee{
     /**
         *Displays employee by username which manager inputted.
     **/
-    public void displayByUsername(){
+    private void displayByUsername(){
         String username = "";
         boolean valid = false;
         start.clear();
@@ -322,7 +322,7 @@ class manager extends employee{
         
         *Default password that system assesses : "password123".
     **/
-    public void hireEmployee() {
+    private void hireEmployee() {
     
         start.clear();
         String username = "";
@@ -433,7 +433,7 @@ class manager extends employee{
      *- Date of birth
      *- Date of start
      **/
-    public void employeeUpdate() {
+    private void employeeUpdate() {
         start.clear();
         String employee_id;
         boolean validID = false;
