@@ -4,16 +4,45 @@ import java.sql.*;
  * Abstract class defines common features of an employee.
  */
 abstract class employee {
+    /**
+     * The unique id for the employee.
+     */
     protected String employee_id;
+    /**
+     * The username of the employee for login purposes.
+     */
     protected String username;
+    /**
+     * The role of the employee, e.g., manager, engineer, technician, or intern.
+     */
     protected String role;
+    /**
+     * The first name of the employee.
+     */
     protected String name;
+    /**
+     * The last name of the employee.
+     */
     protected String surname;
+    /**
+     * The phone number of the employee, stored as a string.
+     */
     protected String phoneNo;
+    /**
+     * The date of birth of the employee in the format YYYY-MM-DD.
+     */
     protected String dateOfBirth;
+    /**
+     * The date when the employee started working in the format YYYY-MM-DD.
+     */
     protected String dateOfStart;
+    /**
+     * The email address of the employee.
+     */
     protected String email;
   /**
+   * Constructor for employee class.
+   * 
  * @param employee_id The identifier for the employee.
  * @param username The unique username of the employee.
  * @param role The role of the employe (manager, engineer, technician, intern)
@@ -77,17 +106,17 @@ abstract class employee {
      * Prints the profile information of the user in a table format.
      * 
      * Informations include:
-     * <ul>
-     * <li>Employee ID</li>
-     *<li>Username</li>
-     * <li>Role</li>
-     * <li>Name</li>
-     * <li>Surname</li>
-     * <li>Phone Number</li>
-     * <li>Date of Birth</li>
-     * <li>Date of Start</li>
-     * <li>Email</li>
-     * <ul>
+     * 
+     * Employee ID
+     * Username
+     * Role
+     * Name
+     * Surname
+     * Phone Number
+     * Date of Birth
+     * Date of Start
+     * Email
+     * 
      */
     protected void displayProfile() {
         start.clear();
@@ -108,18 +137,17 @@ abstract class employee {
      * Allows user to update their profile informations.
      * 
      * The user can choose one field to update or go back on menu:
-     * <ul>
-     * <li>Password</li>
-     * <li>Phone Number</li>
-     * <li>Email</li>
-     * <li>Go back</li>
+     * 
+     * Password
+     * Phone Number
+     * Email
+     * Go back
      * 
      * If the user's input is valid, the selected field will be updated.
      * If the user's input is invalid, system will ask another input.
      * 
      * The user can choose to change another field to update or exit the menu.
      * 
-     * @throws SQLException If a database error ocurs during the update.
      */
     protected void updateProfile() {
         boolean updateContinue = true;
@@ -210,15 +238,14 @@ abstract class employee {
 
             }
         }
+    }
 
     /**
      * Check the user's username if it exist in the database.
      * 
      * @param username The unique username to check in database.
      * @return {@code true} if the username exits on database, {@code false} if the username does not exist.
-     * @throws SQLException if a database error occurs during the query execution. 
      */
-    }
     public boolean checkUser(String username){
         final String checkUsernameQuery = "SELECT COUNT(*) FROM employees WHERE username = ?";
         try(Connection connection = start.connect();
