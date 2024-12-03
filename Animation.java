@@ -6,6 +6,8 @@ import java.util.concurrent.TimeUnit; // Import for TimeUnit (or use Thread.slee
 public class Animation {
     /**
      * A function for the opening animation of the application
+     * 
+     * @throws InterruptedException if the thread is interrupted while sleeping
      */
     public static void animation() throws InterruptedException {
         // ANSI escape codes for colors
