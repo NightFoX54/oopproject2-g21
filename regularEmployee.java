@@ -5,6 +5,7 @@
 
 class regularEmployee extends employee{
     /**
+     * Constructor for regularEmployee class.
      * 
      * @param employee_id the ID of the employee
      * @param username the username of the employee
@@ -23,9 +24,9 @@ class regularEmployee extends employee{
     /**
      * The menu interface for regular employee 
      * Menu displays: 
-     * <ul> Display the profile </li>
-     * <li> Update the current informations</li>
-     * <li> Log out options</li>
+     * Display the profile 
+     * Update the current informations
+     * Log out options
      * The method loops until the employee selects the "Log Out" option.
      */
     public void regularEmployeeeMenu(){
@@ -54,4 +55,3 @@ class regularEmployee extends employee{
         }
     }
 }
-
