@@ -127,7 +127,7 @@ public class algorithms{
      * 
      * @param arr an array to swap it's indices
      * @param i first index to swap
-     * @param i second index to swap
+     * @param j second index to swap
      */
     public static void swap(int[] arr, int i, int j){
         int temp = arr[i];
@@ -152,6 +152,7 @@ public class algorithms{
      * 
      * @param arr the array to compare
      * @param list the list to compare
+     * @return true if arrays are the same, false if they are different
      */
     public static boolean isArraySame(int[] arr, List<Integer> list){
         if(arr.length != list.size())
@@ -168,6 +169,7 @@ public class algorithms{
      * A function to transform a string into an integer
      * 
      * @param input the string to transform
+     * @return integer version of the given string
      */
     public static int toInt(String input){
         boolean isNegative = false;
