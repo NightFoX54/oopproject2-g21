@@ -28,14 +28,14 @@ public class Animation {
 
         String space = " ";
 
-        for(int i = 0; i < 420; i++){
+        for(int i = 0; i < 319; i++){
             int j;
             if(i < 139)
                 j = 139 - i;
             else
                 j = 0;
             int k = i - 139;
-            int e = 419 - i;
+            int e = 318 - i;
             String padding;
             if(k > 0)
                 padding = space.repeat(k);
@@ -43,7 +43,7 @@ public class Animation {
                 padding = "";
             System.out.print("\033[H\033[2J");
             System.out.flush();
-            if(i < 280){
+            if(i < 179){
                 System.out.println(padding + YELLOW + ascii1.substring(j));
                 System.out.println(padding + YELLOW + ascii2.substring(j));
                 System.out.println(padding + RED + ascii3.substring(j));
