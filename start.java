@@ -102,7 +102,7 @@ public class start{
      * Establishes a connection to the database.
      *
      * @return A Connection object to interact with the database.
-     * @throws SQLException.
+     * @throws SQLException
      */
     public static Connection connect() throws SQLException {
         return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db?useUnicode=true&characterEncoding=utf8", "root", "179492");
