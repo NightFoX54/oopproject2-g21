@@ -7,6 +7,8 @@ import java.sql.*;
  */
 class manager extends employee{
     /**
+     * Constructor for manager class.
+     * 
     *@param employee_id  The unique ID of the employee.
     *@param username     The individual and unique username of the employees.
     *@param role         The role of the employee.
