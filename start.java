@@ -33,6 +33,7 @@ public class start{
         int loginAttemp = 0;
         String close = "";
         while(user == null){
+            clear();
             if(loginAttemp != 0){
                 clear();
                 System.out.print("Incorrect credentials! Press enter to try again, type X to close the program: ");
