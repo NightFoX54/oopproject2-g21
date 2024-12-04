@@ -240,6 +240,11 @@ abstract class employee {
         }
     }
 
+    protected int passwordChecker(String password){
+        int passScore = 0;
+        return 0;
+    }
+
     /**
      * Check the user's username if it exist in the database.
      * 
@@ -247,7 +252,7 @@ abstract class employee {
      * @return {@code true} if the username exits on database, {@code false} if the username does not exist.
      */
     public boolean checkUser(String username){
-        final String checkUsernameQuery = "SELECT COUNT(*) FROM employees WHERE username = ?";
+        final String checkUsernameQuery = "SELECT COUNT(*) FROM employees WHERE username COLLATE utf8mb4_bin = ?";
         try(Connection connection = start.connect();
         PreparedStatement statement = connection.prepareStatement(checkUsernameQuery);){
             statement.setString(1, username);
