@@ -343,7 +343,7 @@ public class start{
                     if(prevMenu && input.equals("X"))
                         return input;
                     correctInput = true;
-                    if(input.length() > 1){
+                    if(input.length() > 1 && input.length() < 50){
                         for(int i = 0; i < input.length(); i++){
                             char current = input.charAt(i);
                             if((current < 'a' || current > 'z') && (current < 'A' || current > 'Z') && (current < '0' || current > '9') && "çğöşüÇĞÖŞÜİı".indexOf(current) == -1){
