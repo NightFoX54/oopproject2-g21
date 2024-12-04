@@ -96,7 +96,7 @@ public class start{
                 tempPartial = name.substring(currentIndex);
             }
             else{
-                tempPartial = name.substring(currentIndex, spaceIndex);
+                tempPartial = name.substring(currentIndex, spaceIndex) + " ";
                 currentIndex = spaceIndex + 1;
             }
             tempPartial = tempPartial.substring(0,1).toUpperCase() + tempPartial.substring(1);
