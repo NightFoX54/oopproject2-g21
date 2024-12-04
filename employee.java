@@ -255,9 +255,9 @@ abstract class employee {
                     query = "UPDATE employees SET password = ? WHERE username = ?";
                     break;
                 case "B":
-                    System.out.print("Enter your new phone number without 0 at the beginning or type 'X' to go to previous menu: ");
+                    System.out.print("Enter your new phone number in '+XXX XXXXXXXXXX' format or type 'X' to go to previous menu(accepted country codes: +90, +1, +44, +49, +91): ");
                     newValue = start.scanner.nextLine();
-                    newValue = start.inputControl("phone", newValue, "Incorrect input! Please type your new phone number without 0 at the beginning or type 'X' to go to previous menu: ", true);
+                    newValue = start.inputControl("phone", newValue, "Incorrect input! Please type your new phone number in '+XXX XXXXXXXXXX' format or type 'X' to go to previous menu(accepted country codes: +90, +1, +44, +49, +91): ", true);
                     if(newValue.equals("X"))
                         return;
                     query = "UPDATE employees SET phone_no = ? WHERE username = ?";
