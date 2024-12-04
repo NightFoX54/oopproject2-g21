@@ -84,7 +84,7 @@ public class start{
         String tempPartial = "";
         name = name.toLowerCase();
         while(spaceIndex != -1){
-            spaceIndex = name.indexOf(' ');
+            spaceIndex = name.indexOf(' ',spaceIndex + 1);
             if(spaceIndex == -1){
                 tempPartial = name.substring(currentIndex);
             }
