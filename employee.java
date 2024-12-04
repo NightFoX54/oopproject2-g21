@@ -81,9 +81,49 @@ abstract class employee {
     
                 
                 if (resultSet.next()) {
+                    start.clear();
                     System.out.println("Welcome! Your current password is the default password.");
-                    System.out.print("Type your desired password to change your password: ");
-                    String password = start.scanner.nextLine();
+                    boolean flag = true;
+                    String password = "";
+                    while(flag){
+                        System.out.print("Type your desired password to change your password: ");
+                        password = start.scanner.nextLine();
+                        boolean flag2 = true;
+                        while(flag2){
+                            if(password.contains(" ")){
+                                System.out.print("Password can't contain space character! Please choose a different password: ");
+                                password = start.scanner.nextLine();
+                            }
+                            else if(password.equals("password123")){
+                                System.out.print("Password can't be same as the default password! Please choose a different password: ");
+                                password = start.scanner.nextLine();
+                            }
+                            else
+                                flag2 = false;
+                        }
+                        int passScore = passwordChecker(password);
+                        if(passScore <= 2)
+                            System.out.print("Your password security is very weak! ");
+                        else if(passScore <= 4)
+                            System.out.print("Your password security is weak! ");
+                        else if(passScore <= 6)
+                            System.out.print("Your password security is medium! ");
+                        else if(passScore <= 8)
+                            System.out.print("Your password security is strong! ");
+                        else
+                            System.out.print("Your password security is very strong! ");
+                        System.out.print("Do you want to select a different password(type yes or no): ");
+                        String choice = start.scanner.nextLine();
+                        if(choice.equals("no"))
+                            flag = false;
+                        else{
+                            while(!choice.equals("no") && !choice.equals("yes")){
+                                System.out.print("Incorrect input! Please type yes or no: ");
+                                choice = start.scanner.nextLine();
+                            }
+                        }
+                        start.clear();
+                    }
                     query = "UPDATE employees SET password = ? WHERE username = ?";
                     PreparedStatement statement2 = connection.prepareStatement(query);
                     statement2.setString(2, this.username);
@@ -170,10 +210,48 @@ abstract class employee {
             // Selection of which part to update
             switch (input) {
                 case "A":
-                    System.out.print("Enter your new password or type 'X' to go to previous menu: ");
-                    newValue = start.scanner.nextLine();
-                    if(newValue.equals("X"))
-                        return;
+                    boolean flag = true;
+                    while(flag){
+                        System.out.print("Enter your new password or type 'X' to go to previous menu: ");
+                        newValue = start.scanner.nextLine();
+                        boolean flag2 = true;
+                        while(flag2){
+                            if(newValue.contains(" ")){
+                                System.out.print("Password can't contain space character! Please choose a different password: ");
+                                newValue = start.scanner.nextLine();
+                            }
+                            else if(newValue.equals("password123")){
+                                System.out.print("Password can't be same as the default password! Please choose a different password: ");
+                                newValue = start.scanner.nextLine();
+                            }
+                            else
+                                flag2 = false;
+                        }
+                        if(newValue.equals("X"))
+                            return;
+                        int passScore = passwordChecker(newValue);
+                        if(passScore <= 2)
+                            System.out.print("Your password security is very weak! ");
+                        else if(passScore <= 4)
+                            System.out.print("Your password security is weak! ");
+                        else if(passScore <= 6)
+                            System.out.print("Your password security is medium! ");
+                        else if(passScore <= 8)
+                            System.out.print("Your password security is strong! ");
+                        else
+                            System.out.print("Your password security is very strong!");
+                        System.out.print("Do you want to select a different password(type yes or no): ");
+                        String choice = start.scanner.nextLine();
+                        if(choice.equals("no"))
+                            flag = false;
+                        else{
+                            while(!choice.equals("no") && !choice.equals("yes")){
+                                System.out.print("Incorrect input! Please type yes or no: ");
+                                choice = start.scanner.nextLine();
+                            }
+                        }
+                        start.clear();
+                    }
                     query = "UPDATE employees SET password = ? WHERE username = ?";
                     break;
                 case "B":
@@ -240,9 +318,46 @@ abstract class employee {
         }
     }
 
+
+    /**
+     * Checks the security level of the selected password
+     * 
+     * @param password selected password
+     * @return security level of the given password
+     */
     protected int passwordChecker(String password){
         int passScore = 0;
-        return 0;
+        int lowerCase = 0;
+        int upperCase = 0;
+        int number = 0;
+        int special = 0;
+        int turkish = 0;
+        if(password.length() >= 12)
+            passScore += 2;
+        for(int i = 0; i < password.length(); i++){
+            char current = password.charAt(i);
+            if((current >= 'a' && current <= 'z') && lowerCase == 0){
+                passScore += 1;
+                lowerCase = 1;
+            }
+            else if((current >= 'A' && current <= 'Z') && upperCase == 0){
+                passScore += 1;
+                upperCase = 1;
+            }
+            else if((current >= '0' && current <= '9') && number == 0){
+                passScore += 1;
+                number = 1;
+            }
+            else if("çğöşüÇĞÖŞÜİı".indexOf(current) != -1 && turkish == 0){
+                passScore += 1;
+                turkish = 1;
+            }
+            if((current < 'a' || current > 'z') && (current < 'A' || current > 'Z') && (current < '0' || current > '9') && "çğöşüÇĞÖŞÜİı".indexOf(current) == -1 && special == 0){
+                passScore += 1;
+                special = 1;
+            }
+        }
+        return passScore;
     }
 
     /**
