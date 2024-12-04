@@ -93,6 +93,49 @@ class manager extends employee{
         }
 
     }
+
+    /**
+        *Displays all employee records from the database in a table format for managerFire and employeeUpdate functions.
+
+        *Records include:
+        *- Employee ID
+        *- Username
+        *- Name and surname
+        *- Role
+    **/
+    private void displayAllEmployees() {
+    
+        final String query = "SELECT employee_id, username, name, surname, role FROM employees"; //SQL query for obtaining data from database.
+        start.clear();
+        try (Connection connection = start.connect();
+            Statement statement = connection.createStatement();
+            ResultSet res = statement.executeQuery(query);
+            ){
+            ResultSetMetaData allEmps = res.getMetaData();
+            int numOfCols = allEmps.getColumnCount();
+
+            //Table view for readibilty.
+            System.out.println("===================================================================================================================================================================================");
+            System.out.printf("%-15s%-20s%-20s%-20s%-20s%-20s%-20s%-20s%-20s\n", "Employee ID", "Username", "Name", "Surname", "Role");
+            System.out.println("===================================================================================================================================================================================");
+
+            // To view Query results:
+            while (res.next()) {
+                for (int i = 1; i <= numOfCols; i++) {
+                    if(i == 1)
+                        System.out.printf("%-15s", res.getObject(i));
+                    else
+                        System.out.printf("%-20s", res.getObject(i));
+                }
+                System.out.println();
+            }
+            System.out.println("===================================================================================================================================================================================");
+        } catch (SQLException e) {
+            System.out.println("Error occurred when trying to retrieve data from database: " + e.getMessage());
+            e.printStackTrace();
+        } 
+    }
+
     
     /**
         *Displays all employee records from the database in a table format.
@@ -154,7 +197,7 @@ class manager extends employee{
         String deleteQuery = "DELETE FROM employees WHERE employee_id = ? "; 
         String name = null, surname = null;
 
-        displayAllEmployees();
+        displayHelper();
         System.out.print("Please enter the employee_id of the employee you want to fire or type 'X' to go back to previous menu: ");
         String employee_id = start.scanner.nextLine();
         employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again or type 'X' to go back to previous menu: ", true);
@@ -447,7 +490,7 @@ class manager extends employee{
         String employeeUserName = "";
         //Checking the employee is exist?:
         do {
-            displayAllEmployees();
+            displayHelper();
             System.out.print("Enter the employee_id of the employee you want to update or type 'X' to go back to previous menu: ");
             employee_id = start.scanner.nextLine();
             employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again or type 'X' to go back to previous menu: ", true);
