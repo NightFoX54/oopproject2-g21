@@ -531,6 +531,8 @@ class manager extends employee{
         boolean flag = true;
 
         while(!choice.equals("G")){
+            start.clear();
+            System.out.println("Employee found: "+ employee_id+ " " + employeeName);
             System.out.println("Fields to update:");
             System.out.println("[A] Name");
             System.out.println("[B] Surname");
@@ -562,6 +564,7 @@ class manager extends employee{
                         else{
                             flag = false;
                             employeeName = employeeName.replace(empName, newValue);
+                            empName = newValue;
                         }
                     }
                     break;
