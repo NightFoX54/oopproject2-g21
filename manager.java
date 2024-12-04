@@ -398,11 +398,11 @@ class manager extends employee{
             while(usernameExists){
                 start.clear();
                 if(usernameTrial == 0)
-                    System.out.print("Please type the username of the employee (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ");
+                    System.out.print("Please type the username of the employee (username needs to be within the range of 2-50 characters, and can only contain alphanumerical characters): ");
                 else
-                    System.out.print("Username is already taken by another employee! Please choose another username (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ");
+                    System.out.print("Username is already taken by another employee! Please choose another username (username needs to be within the range of 2-50 characters, and can only contain alphanumerical characters): ");
                 username = start.scanner.nextLine();
-                username = start.inputControl("username", username, "Incorrect input! Please type again (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ", false);
+                username = start.inputControl("username", username, "Incorrect input! Please type again (username needs to be within the range of 2-50 characters, and can only contain alphanumerical characters): ", false);
                 usernameExists = this.checkUser(username);
                 usernameTrial++;
             }
@@ -600,6 +600,7 @@ class manager extends employee{
                         }
                         else{
                             flag = false;
+                            empDateOfBirth = newValue;
                         }
                     }
                     break;
@@ -618,6 +619,7 @@ class manager extends employee{
                         }
                         else{
                             flag = false;
+                            empDateOfStart = newValue;
                         }
                     }
                     break;
@@ -658,17 +660,24 @@ class manager extends employee{
                     updateField = "username";
                     boolean control = true;
                     while (control){
-                        System.out.print("Enter the new username for " + employeeName +" or type 'X' to go back to main menu (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ");
+                        boolean usernameExists = false;
+                        System.out.print("Enter the new username for " + employeeName +" or type 'X' to go back to main menu (username needs to be within the range of 2-50 characters, and can only contain alphanumerical characters): ");
                         newValue = start.scanner.nextLine();
-                        newValue = start.inputControl("username", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu (username can't be shorter than 2 characters, and can only contain alphanumerical characters): ", true);
+                        newValue = start.inputControl("username", newValue, "Incorrect input! Please type again or type 'X' to go back to main menu (username needs to be within the range of 2-50 characters, and can only contain alphanumerical characters): ", true);
+                        usernameExists = this.checkUser(newValue);
                         if(newValue.equals("X"))
                             return;
                         if(newValue.equals(employeeUserName)){
                             start.clear();
-                            System.out.println("The new username cannot be same! Please type again: ");
+                            System.out.println("The new username cannot be same!");
+                        }
+                        else if(usernameExists){
+                            start.clear();
+                            System.out.println("Username is already taken by another employee!");
                         }
                         else{
                             control = false;
+                            employeeUserName = newValue;
                         }
                     }
                 break;
