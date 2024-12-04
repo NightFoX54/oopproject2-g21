@@ -40,26 +40,32 @@ public class start{
             }
             if(close.equals("X"))
                 break;
-            System.out.print("Please type your username to login: ");
+            System.out.print("Please type your username to login or type X to close the program: ");
             username = scanner.nextLine();
-            System.out.print("Please type your password to login: ");
+            if(username.equals("X"))
+                break;
+            System.out.print("Please type your password to login or type X to close the program: ");
             password = scanner.nextLine();
+            if(password.equals("X"))
+                break;
             user = authentication.login(username,password);
             loginAttemp++;
-        }
-        if(!close.equals("X")){
-            start.clear();
-            user.defaultPasswordChange();
-            manager mUser;
-            regularEmployee eUser;
-            if(user.role.equals("manager")){
-                mUser = (manager) user;
-                mUser.managerMenu();
+            if(!close.equals("X") && user != null){
+                start.clear();
+                user.defaultPasswordChange();
+                manager mUser;
+                regularEmployee eUser;
+                if(user.role.equals("manager")){
+                    mUser = (manager) user;
+                    mUser.managerMenu();
+                }
+                else{
+                    eUser = (regularEmployee) user;
+                    eUser.regularEmployeeeMenu();
+                }
+                loginAttemp = 0;
             }
-            else{
-                eUser = (regularEmployee) user;
-                eUser.regularEmployeeeMenu();
-            }
+            user = null;
         }
     }
 
