@@ -422,9 +422,9 @@ class manager extends employee{
             surname = start.inputControl("letter", surname, "Incorrect input. Please type the name of the employee: ", false);
             surname = start.upperCaseName(surname);
             start.clear();
-            System.out.print("Please type the phone number of the employee: ");
+            System.out.print("Please type the phone number of the employee in '+XXX XXXXXXXXXX' format(accepted country codes: +90, +1, +44, +49, +91) : ");
             phone_no = start.scanner.nextLine();
-            phone_no = start.inputControl("phone", phone_no, "Incorrect input. Please type the phone number of the employee: ", false);
+            phone_no = start.inputControl("phone", phone_no, "Incorrect input. Please type the phone number of the employee in '+XXX XXXXXXXXXX' format(accepted country codes: +90, +1, +44, +49, +91) : ", false);
             start.clear();
             System.out.print("Please type the date of birth of the employee in YYYY-MM-DD format: ");
             dateof_birth = start.scanner.nextLine();
