@@ -308,7 +308,7 @@ public class start{
                 }
                 break;
 
-                case "phone":
+            case "phone":
                 correctInput = false;
             
                 String[] codes = {"+90", "+1", "+44", "+49", "+91"}; 
@@ -399,4 +399,3 @@ public class start{
         return input;
     }
 }
-
