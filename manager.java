@@ -178,7 +178,9 @@ class manager extends employee{
                     surname = res.getString("surname");
                 } 
                 else {
-                    System.out.println("No employee matched with Employee ID: " + employee_id);
+                    System.out.println("Employee with "+ employee_id + " has not registered in the database!" );
+                    System.out.print("Press enter to continue: ");
+                    start.scanner.nextLine();
                     return;
                 }
             } 
@@ -199,11 +201,6 @@ class manager extends employee{
                     System.out.print("Press enter to continue: ");
                     start.scanner.nextLine();
                 } 
-                else{
-                    System.out.println("Employee with "+ employee_id + " has not registered in the database!" );
-                    System.out.print("Press enter to continue: ");
-                    start.scanner.nextLine();
-                }
             }
             catch (SQLException e) {
                 System.out.println("Some error ocureed when firing wanted employee: " + e.getMessage());
