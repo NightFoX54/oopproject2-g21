@@ -103,7 +103,7 @@ class manager extends employee{
         *- Name and surname
         *- Role
     **/
-    private void displayAllEmployees() {
+    private void displayHelper() {
     
         final String query = "SELECT employee_id, username, name, surname, role FROM employees"; //SQL query for obtaining data from database.
         start.clear();
