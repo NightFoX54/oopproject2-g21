@@ -154,6 +154,7 @@ class manager extends employee{
         String deleteQuery = "DELETE FROM employees WHERE employee_id = ? "; 
         String name = null, surname = null;
 
+        displayAllEmployees();
         System.out.print("Please enter the employee_id of the employee you want to fire or type 'X' to go back to previous menu: ");
         String employee_id = start.scanner.nextLine();
         employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again or type 'X' to go back to previous menu: ", true);
@@ -446,6 +447,7 @@ class manager extends employee{
         String employeeUserName = "";
         //Checking the employee is exist?:
         do {
+            displayAllEmployees();
             System.out.print("Enter the employee_id of the employee you want to update or type 'X' to go back to previous menu: ");
             employee_id = start.scanner.nextLine();
             employee_id = start.inputControl("number", employee_id, "Incorrect input! Please type again or type 'X' to go back to previous menu: ", true);
