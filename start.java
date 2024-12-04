@@ -112,7 +112,7 @@ public class start{
      * @throws SQLException
      */
     public static Connection connect() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/project2_db?useUnicode=true&characterEncoding=utf8", "root", "179492");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/project_db?useUnicode=true&characterEncoding=utf8", "root", "1234");
     }
 
     /**
@@ -308,27 +308,63 @@ public class start{
                 }
                 break;
 
-            case "phone":
+                case "phone":
                 correctInput = false;
-                while(!correctInput){
-                    if(prevMenu && input.equals("X"))
+            
+                String[] codes = {"+90", "+1", "+44", "+49", "+91"}; 
+            
+                while (!correctInput) {
+                    if (prevMenu && input.equals("X"))
                         return input;
+            
                     correctInput = true;
-                    if(input.length() == 10){
-                        input = inputControl("number", input, message, true);
-                        if(input.charAt(0) == '0')
-                            correctInput = false;
+                    boolean valid = false;
+            
+    
+                    int space = input.indexOf(' '); 
+                    String countryCode;
+            
+                    if (space != -1) {
+                        countryCode = input.substring(0, space); 
+                    } else {
+                        countryCode = input; 
                     }
-                    else{
+    
+                    for (String code : codes) {
+                        if (countryCode.equals(code)) {
+                            valid = true;
+            
+                    
+                            String numberPart = input.substring(countryCode.length()).trim(); 
+            
+                            if (numberPart.length() != 10) { 
+                                correctInput = false;
+                            } else {
+                               
+                                for (int i = 0; i < numberPart.length(); i++) {
+                                    if (numberPart.charAt(i) < '0' || numberPart.charAt(i) > '9') {
+                                        correctInput = false;
+                                        break;
+                                    }
+                                }
+                            }
+            
+                            break; 
+                        }
+                    }
+            
+                    if (!valid) {
                         correctInput = false;
-                       
                     }
-                    if(!correctInput){
-                        System.out.print(message);
+                 
+                    if (!correctInput) {
+                        System.out.print(message); 
                         input = scanner.nextLine();
                     }
                 }
                 break;
+            
+
             case "role":
                 while(!input.equals("manager") && !input.equals("engineer") && !input.equals("technician") && !input.equals("intern")){
                     if(prevMenu && input.equals("X"))
@@ -363,3 +399,4 @@ public class start{
         return input;
     }
 }
+
